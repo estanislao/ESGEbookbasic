@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Automatização de Indicadores ESG com KNIME</title>
+    <title>Automatize seus Indicadores ESG - Guia Prático</title>
     <style>
         * {
             margin: 0;
@@ -12,281 +12,296 @@
         }
         
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Georgia', 'Times New Roman', serif;
             line-height: 1.8;
-            color: #2d3748;
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            color: #17203c;
+            background-color: #f5f5f5;
             padding: 20px;
         }
         
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             margin: 0 auto;
-            background: white;
+            background-color: white;
             padding: 60px;
-            border-radius: 20px;
-            box-shadow: 0 25px 70px rgba(0,0,0,0.35);
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
         
-        /* CTA Box inicial - após título */
-        .cta-inicial {
-            background: linear-gradient(135deg, #2d7a72 0%, #3a9b93 100%);
-            color: white;
-            padding: 30px;
-            border-radius: 12px;
-            margin: 30px 0;
+        .cover {
             text-align: center;
-            box-shadow: 0 8px 25px rgba(45, 122, 114, 0.25);
+            padding: 100px 0;
+            background: #a8d5a8;
+            color: #17203c;
+            margin: -60px -60px 60px -60px;
+            page-break-after: always;
         }
         
-        .cta-inicial p {
-            color: white;
-            font-size: 1.1em;
-            margin: 15px 0;
-            font-weight: 500;
-            text-align: center;
+        .cover h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+            font-weight: bold;
         }
         
-        .cta-inicial a {
-            color: white;
-            text-decoration: underline;
-            font-weight: 700;
+        .cover .subtitle {
+            font-size: 1.5em;
+            margin-bottom: 40px;
+            font-style: italic;
         }
         
-        .cta-inicial a:hover {
-            color: #f0fdfa;
-            text-decoration: underline;
+        .cover .author {
+            margin-top: 60px;
+            font-size: 1.2em;
         }
         
         h1 {
-            color: #0f766e;
-            font-size: 3em;
-            margin-bottom: 15px;
-            border-bottom: 5px solid #14b8a6;
-            padding-bottom: 20px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            color: #2e7d32;
+            font-size: 2.5em;
+            margin: 40px 0 20px 0;
+            border-bottom: 3px solid #2e7d32;
+            padding-bottom: 10px;
+            page-break-before: always;
         }
         
         h2 {
-            color: #0d9488;
-            font-size: 2.2em;
-            margin-top: 50px;
-            margin-bottom: 25px;
-            border-left: 6px solid #14b8a6;
-            padding-left: 20px;
-            background: linear-gradient(90deg, #f0fdfa 0%, transparent 100%);
-            padding: 15px 20px;
+            color: #1565c0;
+            font-size: 2em;
+            margin: 30px 0 15px 0;
         }
         
         h3 {
-            color: #14b8a6;
-            font-size: 1.7em;
-            margin-top: 35px;
-            margin-bottom: 18px;
-            border-bottom: 2px solid #99f6e4;
-            padding-bottom: 8px;
-        }
-        
-        h4 {
-            color: #0f766e;
-            font-size: 1.3em;
-            margin-top: 25px;
-            margin-bottom: 12px;
+            color: #17203c;
+            font-size: 1.5em;
+            margin: 25px 0 12px 0;
         }
         
         p {
-            margin-bottom: 18px;
+            margin-bottom: 15px;
             text-align: justify;
-            font-size: 1.05em;
         }
         
         ul, ol {
-            margin-left: 35px;
-            margin-bottom: 18px;
+            margin: 15px 0 15px 30px;
         }
         
         li {
             margin-bottom: 10px;
         }
         
-        pre {
-            background: #f0fdfa;
-            padding: 25px;
-            border-radius: 10px;
-            border-left: 5px solid #14b8a6;
-            overflow-x: auto;
+        .toc {
+            background-color: #f9f9f9;
+            padding: 30px;
+            border-left: 5px solid #2e7d32;
+            margin: 40px 0;
+            page-break-after: always;
+        }
+        
+        .toc h2 {
+            color: #2e7d32;
+            margin-bottom: 20px;
+        }
+        
+        .toc ul {
+            list-style: none;
+            margin-left: 0;
+        }
+        
+        .toc li {
+            margin-bottom: 12px;
+            font-size: 1.1em;
+        }
+        
+        .toc a {
+            color: #1565c0;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .toc a:hover {
+            color: #2e7d32;
+            text-decoration: underline;
+        }
+        
+        .highlight-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2e7d32;
+            padding: 20px;
             margin: 25px 0;
-            font-family: 'Courier New', monospace;
-            font-size: 0.95em;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            border-radius: 5px;
+        }
+        
+        .warning-box {
+            background-color: #fff3e0;
+            border-left: 5px solid #ff9800;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .info-box {
+            background-color: #e3f2fd;
+            border-left: 5px solid #1565c0;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .checklist {
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 5px;
+        }
+        
+        .checklist ul {
+            list-style: none;
+        }
+        
+        .checklist li:before {
+            content: "✅ ";
+            margin-right: 10px;
+        }
+        
+        .error-list ul {
+            list-style: none;
+        }
+        
+        .error-list li:before {
+            content: "❌ ";
+            margin-right: 10px;
+        }
+        
+        .success-list ul {
+            list-style: none;
+        }
+        
+        .success-list li:before {
+            content: "✅ ";
+            margin-right: 10px;
+        }
+        
+        strong {
+            color: #17203c;
+        }
+        
+        em {
+            color: #2e7d32;
         }
         
         code {
-            background: #f0fdfa;
-            padding: 3px 8px;
-            border-radius: 4px;
+            background-color: #f5f5f5;
+            padding: 2px 8px;
+            border-radius: 3px;
             font-family: 'Courier New', monospace;
-            color: #0f766e;
-            font-size: 0.92em;
-            font-weight: 500;
+            font-size: 0.9em;
         }
         
-        pre code {
-            background: transparent;
-            padding: 0;
-            color: inherit;
-        }
-        
-        blockquote {
-            border-left: 6px solid #14b8a6;
-            padding-left: 25px;
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
             margin: 30px 0;
-            font-style: italic;
-            background: #f0fdfa;
-            padding: 20px 25px;
-            border-radius: 8px;
-            font-size: 1.15em;
-            color: #0f766e;
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 20px;
+            background-color: #e8f5e9;
+            border-radius: 10px;
+            margin: 10px;
+            flex: 1;
+            min-width: 200px;
+        }
+        
+        .stat-number {
+            font-size: 2.5em;
+            color: #2e7d32;
+            font-weight: bold;
+        }
+        
+        .stat-label {
+            color: #17203c;
+            margin-top: 10px;
+        }
+        
+        .workflow-step {
+            background: linear-gradient(to right, #e8f5e9, #e3f2fd);
+            padding: 15px 25px;
+            margin: 15px 0;
+            border-radius: 50px;
+            font-weight: bold;
+            text-align: center;
         }
         
         table {
             width: 100%;
             border-collapse: collapse;
             margin: 25px 0;
-            background: white;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            border-radius: 8px;
-            overflow: hidden;
+        }
+        
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
         }
         
         th {
-            background: linear-gradient(135deg, #0f766e 0%, #14b8a6 100%);
+            background-color: #2e7d32;
             color: white;
-            padding: 18px;
-            text-align: left;
-            font-weight: 600;
-            text-transform: uppercase;
-            font-size: 0.9em;
-            letter-spacing: 0.5px;
         }
         
-        td {
-            padding: 15px 18px;
-            border-bottom: 1px solid #e2e8f0;
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
         }
         
-        tr:hover {
-            background: #f0fdfa;
-        }
-        
-        tr:last-child td {
-            border-bottom: none;
-        }
-        
-        hr {
-            border: none;
-            border-top: 3px solid #99f6e4;
-            margin: 50px 0;
-        }
-        
-        strong {
-            color: #0f766e;
-            font-weight: 600;
-        }
-        
-        a {
-            color: #14b8a6;
-            text-decoration: none;
-            border-bottom: 2px solid transparent;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-        
-        a:hover {
-            border-bottom: 2px solid #14b8a6;
-            color: #0d9488;
-        }
-        
-        /* CTA Box final - diagnóstico */
-        .cta-diagnostico {
-            background: linear-gradient(135deg, #2d7a72 0%, #3a9b93 100%);
+        .footer-section {
+            background-color: #2e7d32;
             color: white;
-            padding: 50px;
-            border-radius: 20px;
-            margin: 60px 0;
+            padding: 40px;
+            margin: 60px -60px -60px -60px;
             text-align: center;
-            box-shadow: 0 20px 60px rgba(45, 122, 114, 0.3);
         }
         
-        .cta-diagnostico-title {
-            font-size: 2.5em;
-            font-weight: 700;
+        .footer-section h2 {
+            color: white;
             margin-bottom: 20px;
-            color: white;
         }
         
-        .cta-diagnostico-subtitle {
-            font-size: 1.2em;
-            margin-bottom: 40px;
-            color: white;
-            font-weight: 400;
-            line-height: 1.6;
-        }
-        
-        .cta-diagnostico-button {
-            display: inline-block;
-            background: white;
-            color: #0f766e;
-            padding: 20px 60px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1.2em;
+        .footer-section a {
+            color: #a5d6a7;
             text-decoration: none;
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            border: none;
-            letter-spacing: 0.5px;
-        }
-        
-        .cta-diagnostico-button:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
-            color: #0f766e;
-            border-bottom: none;
-        }
-        
-        .cta-diagnostico-features {
-            margin-top: 30px;
-            font-size: 1em;
-            color: white;
-            font-weight: 400;
-        }
-        
-        .cta-diagnostico-features span {
-            margin: 0 15px;
-            display: inline-block;
         }
         
         @media print {
             body {
-                background: white;
+                background-color: white;
                 padding: 0;
             }
             
             .container {
                 box-shadow: none;
-                padding: 30px;
+                padding: 40px;
             }
             
-            .cta-inicial, .cta-diagnostico {
-                display: none;
+            h1 {
+                page-break-before: always;
+            }
+            
+            .highlight-box, .warning-box, .info-box {
+                page-break-inside: avoid;
             }
         }
         
         @media (max-width: 768px) {
             .container {
                 padding: 30px 20px;
+            }
+            
+            .cover h1 {
+                font-size: 2em;
+            }
+            
+            .cover .subtitle {
+                font-size: 1.2em;
             }
             
             h1 {
@@ -297,2077 +312,1136 @@
                 font-size: 1.6em;
             }
             
-            .cta-inicial {
-                padding: 20px;
-            }
-            
-            .cta-diagnostico {
-                padding: 30px 20px;
-            }
-            
-            .cta-diagnostico-title {
-                font-size: 1.8em;
-            }
-            
-            .cta-diagnostico-button {
-                padding: 15px 40px;
-                font-size: 1em;
-            }
-            
-            .cta-diagnostico-features span {
-                display: block;
-                margin: 10px 0;
+            .stats {
+                flex-direction: column;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Automatização de Indicadores ESG com KNIME</h1>
-<h2>Da Preparação de Dados à Conformidade Regulatória</h2>
-<h3>Um Guia Prático para Profissionais de ESG</h3>
-
-<h2>Sumário</h2>
-<p><strong>Introdução</strong></p>
-<p><strong>Parte 1: Conceitos Fundamentais no KNIME para ESG</strong><br />
-- O Que é um Workflow no KNIME?<br />
-- Por Que o KNIME é Ideal para ESG?<br />
-- Estados dos Nodes (para Auditoria)</p>
-<p><strong>Parte 2: Superando Desafios de Dados ESG</strong><br />
-- 2.1 Do ETL Manual à Automação ESG<br />
-- 2.2 Indo Além das Planilhas ESG<br />
-- 2.3 Integrando Bancos de Dados ESG</p>
-<p><strong>Parte 3: Preparação Moderna de Dados ESG</strong><br />
-- 3.1 Modelo de Autoatendimento para ESG<br />
-- 3.2 Fluxo de Trabalho Iterativo para ESG<br />
-  - 3.2.1 Qualidade de Dados ESG<br />
-  - 3.2.2 Transformação de Dados ESG<br />
-  - 3.2.3 Data Pipelining para ESG<br />
-- 3.3 Machine Learning para ESG<br />
-- 3.4 Operacionalização para Produção ESG</p>
-<p><strong>Parte 4: Workflows Práticos para ESG</strong><br />
-- Workflow 1: Consolidação de Dados de Energia<br />
-- Workflow 2: Cálculo de Scope 3 - Employee Commute<br />
-- Workflow 3: Análise Completa de Scopes 1, 2 e 3<br />
-- Workflow 4: Preparação para Auditoria ESG</p>
-<p><strong>Parte 5: Melhores Práticas para ESG</strong><br />
-- 5.1 Organização de Workflows ESG<br />
-- 5.2 Qualidade e Conformidade ESG<br />
-- 5.3 Performance em Workflows ESG</p>
-<p><strong>Parte 6: Checklist Completo para ESG</strong><br />
-- Checklist de Preparação de Dados ESG (8 etapas)</p>
-<p><strong>Parte 7: Referência Rápida ESG</strong><br />
-- Nodes Essenciais para ESG (por categoria)</p>
-<p><strong>Parte 8: CASO PRÁTICO COMPLETO - Tracking de Emissões de CO2</strong><br />
-- Contexto e Framework GHG Protocol<br />
-- O Caso: Empresa de Software de Médio Porte<br />
-- Os Dados Utilizados<br />
-- Estratégias de Cálculo de CO2<br />
-- Implementação Detalhada no KNIME<br />
-- Resultados e Insights<br />
-- Automação e Produção<br />
-- Governança e Conformidade<br />
-- Como Usar Este Workflow</p>
-<p><strong>Parte 9: Conectando com Soluções HupData</strong><br />
-- Por Que HupData?<br />
-- Solução Completa HupData para ESG<br />
-- Benefícios da Automação HupData<br />
-- Cases de Sucesso</p>
-<p><strong>Conclusão Final</strong><br />
-- O Que Você Aprendeu<br />
-- Sua Jornada ESG com KNIME</p>
-<p><strong>Avalie Sua Maturidade em ESG</strong><br />
-- Diagnóstico Gratuito de Automação ESG<br />
-- Por Que Fazer o Diagnóstico?<br />
-- Para Quem Já Fez o Diagnóstico</p>
-<p><strong>Recursos Essenciais</strong></p>
-<p><strong>Agradecimentos</strong></p>
-<hr />
-<h2>Introdução</h2>
-<blockquote>
-<p><strong>70% de redução no tempo de coleta</strong><br />
-<strong>100% de rastreabilidade dos dados</strong><br />
-<strong>3x mais rápido nos relatórios</strong></p>
-</blockquote>
-<p>A gestão de indicadores ESG (Environmental, Social, and Governance) enfrenta desafios únicos: dados dispersos em múltiplas fontes, processos manuais propensos a erros, variação de fatores de emissão, e a pressão constante por conformidade regulatória (CVM, GRI, SASB).</p>
-<p>Este ebook mostra como <strong>profissionais de ESG</strong> podem usar o KNIME Analytics Platform para:</p>
-<p>✅ <strong>Automatizar a coleta</strong> de dados de emissões, energia, recursos e operações<br />
-✅ <strong>Preparar e validar</strong> dados de múltiplas fontes (Excel, SAP, APIs, IoT)<br />
-✅ <strong>Calcular KPIs</strong> de Scopes 1, 2 e 3 automaticamente<br />
-✅ <strong>Criar dashboards</strong> interativos para monitoramento e reporte<br />
-✅ <strong>Garantir rastreabilidade</strong> e conformidade total</p>
-<p>Ao final, você verá um <strong>caso prático completo</strong> de Tracking de CO2 Emissions com workflow pronto para download.</p>
-<hr />
-<h2>Parte 1: Conceitos Fundamentais no KNIME para ESG</h2>
-<h3>O Que é um Workflow no KNIME?</h3>
-<p>Para profissionais de ESG, um <strong>workflow</strong> é a sequência automatizada de etapas para coletar, processar e reportar indicadores ambientais, sociais e de governança.</p>
-<p><strong>Exemplo de Workflow ESG:</strong></p>
-<pre><code>CSV Reader (consumo energia) → 
-Column Filter (dados relevantes) → 
-Math Formula (cálculo CO2) → 
-Group By (agregação por unidade) → 
-Dashboard (visualização)
-</code></pre>
-<h3>Por Que o KNIME é Ideal para ESG?</h3>
-<p><strong>Desafios Típicos em ESG:</strong><br />
-- ❌ Dados dispersos (Excel, ERP, sensores IoT)<br />
-- ❌ Processos manuais demorados<br />
-- ❌ Variação de fatores de emissão<br />
-- ❌ Falta de auditabilidade<br />
-- ❌ Compartilhamento limitado entre departamentos<br />
-- ❌ Risco de não conformidade</p>
-<p><strong>Solução KNIME:</strong><br />
-- ✅ <strong>Integração Total</strong>: Conecta SAP, Excel, databases, APIs<br />
-- ✅ <strong>Cálculos Automatizados</strong>: CO2, KPIs, métricas de impacto<br />
-- ✅ <strong>Governança de Dados</strong>: Workflows versionados e rastreáveis<br />
-- ✅ <strong>Conformidade</strong>: Atende CVM, GRI, SASB automaticamente<br />
-- ✅ <strong>Escalabilidade</strong>: Do piloto ao enterprise</p>
-<h3>Estados dos Nodes (para Auditoria)</h3>
-<p>O KNIME oferece rastreabilidade total através dos estados visuais:</p>
-<ul>
-<li>🔴 <strong>Vermelho</strong>: Não configurado (etapa pendente)</li>
-<li>🟡 <strong>Amarelo</strong>: Configurado (pronto para executar)</li>
-<li>🟢 <strong>Verde</strong>: Executado com sucesso (dados validados)</li>
-<li>❌ <strong>Vermelho com X</strong>: Erro (requer investigação)</li>
-</ul>
-<p>Essa transparência visual é essencial para <strong>auditorias ESG</strong>.</p>
-<hr />
-<h2>Parte 2: Superando Desafios de Dados ESG</h2>
-<h3>2.1 Do ETL Manual à Automação ESG</h3>
-<p><strong>Problema Tradicional em ESG:</strong></p>
-<pre><code>Analista ESG recebe:
-├─ Excel 1: Consumo de energia da fábrica A
-├─ Excel 2: Dados de transporte da logística
-├─ SAP: Custos de marketing (Scope 3)
-├─ Sensor IoT: Emissões em tempo real
-└─ Email: Fatores de emissão atualizados
-
-Processo manual:
-1. Abrir cada arquivo
-2. Copiar/colar dados
-3. Calcular manualmente com fatores
-4. Consolidar em planilha mestre
-5. Criar relatório para auditoria
-⏱️ Tempo: 2-3 dias por mês
-⚠️ Risco: Alto (erros, inconsistências)
-</code></pre>
-<p><strong>Solução KNIME para ESG:</strong></p>
-<pre><code>[Workflow Automatizado - 30 minutos]
-
-CSV Reader (energia) ──┐
-Excel Reader (transporte)──┤
-SAP Connector (custos) ────├──→ Data Preparation ──→ 
-DB Reader (fatores CO2)────┤     (validação, cálculo)
-API Reader (IoT) ──────────┘
-                                    ↓
-                              KPI Calculator
-                              (Scopes 1,2,3)
-                                    ↓
-                              Dashboard Automático
-                              (GRI, SASB, CVM)
-</code></pre>
-<p><strong>Implementação Prática:</strong></p>
-<ol>
-<li>
-<p><strong>Leitura Automática de Dados ESG</strong><br />
-<code>CSV Reader: Consumo de energia (kWh)
-   Excel Reader: Dados de commute de funcionários
-   DB Reader: Tabela de fatores de emissão
-   API Reader: Sensores IoT de HVAC</code></p>
-</li>
-<li>
-<p><strong>Transformação Visual</strong><br />
-<code>Column Filter: Seleciona apenas métricas ESG
-   Row Filter: Remove dados fora do período de reporte
-   Type Conversion: Garante unidades corretas (kWh, km, kg)</code></p>
-</li>
-<li>
-<p><strong>Publicação Auditável</strong><br />
-<code>CSV Writer: Dados processados
-   DB Writer: Banco de dados corporativo
-   Excel Writer: Relatório para stakeholders</code></p>
-</li>
-</ol>
-<hr />
-<h3>2.2 Indo Além das Planilhas ESG</h3>
-<p><strong>Limitações do Excel para ESG:</strong></p>
-<table>
-<thead>
-<tr>
-<th>Desafio</th>
-<th>Excel</th>
-<th>KNIME</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Múltiplas fontes</td>
-<td>❌ Copiar/colar manual</td>
-<td>✅ Conectores automáticos</td>
-</tr>
-<tr>
-<td>Fatores de emissão</td>
-<td>❌ Atualização manual</td>
-<td>✅ Banco de dados centralizado</td>
-</tr>
-<tr>
-<td>Cálculos Scope 3</td>
-<td>❌ Fórmulas propensas a erro</td>
-<td>✅ Workflows validados</td>
-</tr>
-<tr>
-<td>Auditoria</td>
-<td>❌ Difícil rastreabilidade</td>
-<td>✅ 100% rastreável</td>
-</tr>
-<tr>
-<td>Colaboração</td>
-<td>❌ Múltiplas versões</td>
-<td>✅ Workflow único versionado</td>
-</tr>
-<tr>
-<td>Conformidade</td>
-<td>❌ Verificação manual</td>
-<td>✅ Regras automatizadas</td>
-</tr>
-</tbody>
-</table>
-<p><strong>Implementação Equivalente:</strong></p>
-<p><strong>No Excel você faria:</strong></p>
-<pre><code>=VLOOKUP(combustível, tabela_fatores, 2, FALSO) * consumo
-</code></pre>
-<p><strong>No KNIME você faz:</strong></p>
-<pre><code>Joiner Node: 
-  - Tabela 1: Consumo por fonte
-  - Tabela 2: Fatores de emissão (UK Gov 2023)
-  - Join Key: Tipo de fonte
-
-Math Formula Node:
-  - $Consumo$ * $Fator_CO2$
-
-Resultado: Cálculo auditável e reproduzível
-</code></pre>
-<hr />
-<h3>2.3 Integrando Bancos de Dados ESG</h3>
-<p><strong>Cenário Real:</strong><br />
-Sua empresa mantém fatores de emissão em um banco MySQL corporativo, atualizado mensalmente pela equipe de sustentabilidade.</p>
-<p><strong>KNIME Como Solução:</strong></p>
-<ol>
-<li>
-<p><strong>MySQL Connector</strong><br />
-   - Conecta ao banco de fatores de emissão<br />
-   - Credenciais seguras via workflow variables<br />
-   - Conexão reutilizável em múltiplos workflows</p>
-</li>
-<li>
-<p><strong>DB Table Selector</strong><br />
-   - Navega entre tabelas: <code>fatores_co2_2024</code>, <code>fatores_co2_escopo3</code><br />
-   - Visualiza estrutura sem precisar de SQL</p>
-</li>
-<li>
-<p><strong>DB Reader</strong><br />
-<code>sql
-   SELECT tipo_fonte, fator_co2_kg, unidade
-   FROM fatores_emissao
-   WHERE ano = 2024 AND regiao = 'Brasil'</code></p>
-</li>
-<li>
-<p><strong>DB Writer</strong><br />
-   - Grava resultados calculados<br />
-   - Alimenta Power BI/Tableau<br />
-   - Base para relatórios GRI/SASB</p>
-</li>
-</ol>
-<hr />
-<h2>Parte 3: Preparação Moderna de Dados ESG</h2>
-<h3>3.1 Modelo de Autoatendimento para ESG</h3>
-<p>O KNIME permite que <strong>analistas de sustentabilidade</strong> preparem seus próprios dados sem depender de TI:</p>
-<p><strong>Exemplo Prático:</strong></p>
-<pre><code>Analista de ESG precisa calcular Scope 3 de fornecedores
-
-Antes (com TI):
-1. Abre ticket de solicitação → 3 dias
-2. TI cria query SQL → 2 dias
-3. Analista valida → 1 dia
-4. Ajustes e correções → 2 dias
-⏱️ Total: 8 dias
-
-Agora (com KNIME):
-1. Abre workflow existente → 5 min
-2. Ajusta filtros e parâmetros → 10 min
-3. Executa e valida → 5 min
-4. Exporta para relatório → 5 min
-⏱️ Total: 25 minutos
-</code></pre>
-<p><strong>Ferramentas de Autoatendimento:</strong></p>
-<ol>
-<li>
-<p><strong>Workflow Coach</strong><br />
-   - Sugere nodes para cálculos ESG comuns<br />
-   - Baseado em best practices da comunidade</p>
-</li>
-<li>
-<p><strong>Componentes Reutilizáveis</strong><br />
-   - "Calculadora Scope 1" compartilhada<br />
-   - "Validador GRI" padronizado<br />
-   - "Dashboard Mensal ESG" template</p>
-</li>
-<li>
-<p><strong>Documentação Integrada</strong><br />
-   - Node descriptions explicam cada cálculo<br />
-   - Metanodes documentam processos complexos<br />
-   - Anotações para auditorias</p>
-</li>
-</ol>
-<hr />
-<h3>3.2 Fluxo de Trabalho Iterativo para ESG</h3>
-<h4>3.2.1 Qualidade de Dados ESG</h4>
-<p><strong>A. Descoberta (Data Profiling)</strong></p>
-<p><strong>Problema ESG:</strong> Você recebe dados de consumo energético de 15 unidades. Há valores faltantes? Outliers? Unidades inconsistentes?</p>
-<p><strong>Solução KNIME:</strong></p>
-<ol>
-<li>
-<p><strong>Statistics Tab</strong><br />
-<code>Após executar CSV Reader:
-   ✓ Identifica 3 unidades com dados missing
-   ✓ Detecta unidade A com consumo 10x maior (outlier?)
-   ✓ Confirma unidades: kWh (não MWh misturado)</code></p>
-</li>
-<li>
-<p><strong>Histogram</strong><br />
-<code>Visualiza distribuição de consumo:
-   - Maioria: 5.000-8.000 kWh/mês
-   - Outlier: Unidade nova com 50.000 kWh
-   - Ação: Investigar antes de calcular CO2</code></p>
-</li>
-<li>
-<p><strong>Scatter Plot</strong><br />
-<code>Correlação: Consumo vs. Área construída
-   - Identifica unidades ineficientes
-   - Prioriza ações de redução</code></p>
-</li>
-</ol>
-<p><strong>Workflow de Descoberta:</strong></p>
-<pre><code>CSV Reader (dados energia) → 
-Statistics Tab (análise inicial) → 
-Histogram (distribuição) → 
-Scatter Plot (correlações) → 
-Relatório de Qualidade
-</code></pre>
-<hr />
-<p><strong>B. Validação de Dados ESG</strong></p>
-<p><strong>Conceito:</strong> Garantir que dados atendem critérios de conformidade.</p>
-<p><strong>Regras de Validação Comuns em ESG:</strong></p>
-<pre><code>✓ Consumo energia &gt; 0
-✓ Emissões CO2 &gt;= 0
-✓ Datas dentro do período fiscal
-✓ Unidades de medida consistentes
-✓ Fatores de emissão atualizados
-✓ Todos os Scopes representados
-</code></pre>
-<p><strong>Implementação KNIME:</strong></p>
-<ol>
-<li><strong>Rule Engine</strong> - Validação de Regras<br />
-   ```<br />
-   Validação de Consumo Energético:</li>
-</ol>
-<p>$Consumo_kWh$ &gt; 0 AND $Consumo_kWh$ &lt; 100000 <br />
-       =&gt; "VÁLIDO"<br />
-   $Consumo_kWh$ &lt;= 0 <br />
-       =&gt; "INVÁLIDO - Consumo zero ou negativo"<br />
-   $Consumo_kWh$ &gt;= 100000 <br />
-       =&gt; "REVISAR - Consumo anormalmente alto"<br />
-   TRUE <br />
-       =&gt; "ERRO - Verificar dados"<br />
-   ```</p>
-<ol start="2">
-<li>
-<p><strong>Row Filter</strong> - Remove Inválidos<br />
-<code>Critério: Status = "VÁLIDO"
-   Ação: Encaminha válidos para cálculo
-   Output 2: Tabela de registros para revisão</code></p>
-</li>
-<li>
-<p><strong>Missing Value</strong><br />
-   ```<br />
-   Estratégia para ESG:</p>
-</li>
-</ol>
-<p>Dados críticos (Scope 1 direto):<br />
-   - Remover linhas incompletas</p>
-<p>Dados estimáveis (Scope 3):<br />
-   - Preencher com média do período<br />
-   - Documentar estimativa para auditoria<br />
-   ```</p>
-<p><strong>Exemplo Prático: Validação de Commute (Scope 3)</strong></p>
-<pre><code>CSV Reader (dados funcionários) →
-Rule Engine:
-  $Modo_Transporte$ = &quot;Carro&quot; AND $Distancia_km$ &gt; 0 
-      =&gt; &quot;VÁLIDO&quot;
-  $Modo_Transporte$ = &quot;A pé&quot; AND $Distancia_km$ &gt; 10 
-      =&gt; &quot;IMPROVÁVEL - Revisar&quot;
-  $Distancia_km$ &lt;= 0 
-      =&gt; &quot;INVÁLIDO&quot;
-→ Row Filter (mantém válidos)
-→ Tabela validada para cálculo CO2
-</code></pre>
-<hr />
-<p><strong>C. Orquestração de Qualidade</strong></p>
-<p><strong>Conceito:</strong> Automatizar validações para produção mensal/trimestral.</p>
-<p><strong>Implementação KNIME:</strong></p>
-<p><strong>Metanode: Validação ESG Padrão</strong></p>
-<pre><code>[Metanode: Validação_Dados_ESG_v1.2]
-Inputs: Tabela de consumo bruta
-├─ Statistics Node (coleta métricas)
-├─ Rule Engine (aplica 10 regras de negócio)
-├─ Missing Value (trata nulos conforme política)
-├─ Row Filter (remove inválidos)
-└─ Excel Writer (log de validação para auditoria)
-Outputs: 
-  - Tabela validada
-  - Relatório de qualidade (% válidos, outliers)
-</code></pre>
-<p><strong>Vantagens:</strong><br />
-- Processo padronizado entre analistas<br />
-- Auditável (mesma versão para todos)<br />
-- Compartilhável via KNIME Hub<br />
-- Atualização centralizada</p>
-<p><strong>Uso:</strong></p>
-<pre><code>Janeiro: Arrasta Metanode → Executa → 95% dados válidos ✓
-Fevereiro: Mesmo Metanode → 98% válidos ✓
-Março: Outlier detectado → Investigar fonte
-</code></pre>
-<hr />
-<h4>3.2.2 Transformação de Dados ESG</h4>
-<p><strong>A. Estruturar Dados para Cálculos ESG</strong></p>
-<p><strong>Problema Real:</strong> Planilha de fornecedores tem uma coluna "Categoria_CNAE" que contém múltiplos códigos separados por vírgula.</p>
-<pre><code>Fornecedor: ABC Ltda
-Categoria_CNAE: &quot;4711-3/01, 4711-3/02, 4713-0/01&quot;
-</code></pre>
-<p><strong>Solução KNIME:</strong></p>
-<ol>
-<li><strong>Cell Splitter</strong><br />
-   ```<br />
-   Input: "4711-3/01, 4711-3/02, 4713-0/01"<br />
-   Delimiter: ","<br />
-   Output: <br />
-   ├─ CNAE_1: "4711-3/01"<br />
-   ├─ CNAE_2: "4711-3/02"<br />
-   └─ CNAE_3: "4713-0/01"</li>
-</ol>
-<p>Uso: Permite aplicar fator de emissão específico<br />
-   ```</p>
-<ol start="2">
-<li><strong>Unpivoting</strong><br />
-   ```<br />
-   De formato "wide":<br />
-   Mês | Unidade_A | Unidade_B | Unidade_C<br />
-   Jan | 1000 kWh  | 1500 kWh  | 1200 kWh</li>
-</ol>
-<p>Para formato "long" (ideal para análise):<br />
-   Mês | Unidade   | Consumo_kWh<br />
-   Jan | A         | 1000<br />
-   Jan | B         | 1500<br />
-   Jan | C         | 1200</p>
-<p>Benefício: Facilita Group By e agregações<br />
-   ```</p>
-<hr />
-<p><strong>B. Limpar Dados ESG</strong></p>
-<p><strong>Casos Comuns em ESG:</strong></p>
-<ol>
-<li><strong>Padronizar Unidades de Medida</strong><br />
-   ```<br />
-   String Manipulation:</li>
-</ol>
-<p>Problema: <br />
-   - "1000 kwh"<br />
-   - "1000 KWH"<br />
-   - "1000kWh"<br />
-   - "1 MWh"</p>
-<p>Solução:<br />
-   lowerCase(strip($Consumo$))<br />
-   → "1000 kwh" padronizado</p>
-<ul>
-<li>Math Formula para converter MWh → kWh<br />
-   ```</li>
-</ul>
-<ol start="2">
-<li><strong>Limpar Nomes de Unidades</strong><br />
-   ```<br />
-   String Replacer:</li>
-</ol>
-<p>Problema: "Fábrica SP - Unidade 01 (Principal)"<br />
-   Desejado: "Fábrica SP"</p>
-<p>Regex: " - .*$"<br />
-   Replace: ""<br />
-   Resultado: "Fábrica SP"<br />
-   ```</p>
-<ol start="3">
-<li><strong>Padronizar Nomenclatura de Scopes</strong><br />
-   ```<br />
-   Rule Engine:</li>
-</ol>
-<p>$Categoria$ = "Energia Elétrica" =&gt; "Scope 2"<br />
-   $Categoria$ contains "Combustível" =&gt; "Scope 1"<br />
-   $Categoria$ contains "Viagem" OR $Categoria$ contains "Commute" <br />
-       =&gt; "Scope 3"<br />
-   $Categoria$ contains "Marketing" =&gt; "Scope 3"<br />
-   TRUE =&gt; "Classificar Manualmente"<br />
-   ```</p>
-<hr />
-<p><strong>C. Enriquecer Dados ESG</strong></p>
-<p><strong>1. Cálculo de CO2 (Math Formula - Capítulo 5)</strong></p>
-<pre><code>Exemplo: Consumo de eletricidade
-
-Dados:
-- Consumo: 5.000 kWh
-- Fator Brasil: 0.0817 kg CO2/kWh (2024)
-
-Math Formula:
-$Consumo_kWh$ * $Fator_CO2$
-= 5000 * 0.0817
-= 408.5 kg CO2
-
-Node: Math Formula
-Expression: $Consumo_kWh$ * $Fator_CO2_por_kWh$
-New Column: Emissao_CO2_kg
-</code></pre>
-<p><strong>2. Cálculo de Emissões de Commute (Math Formula)</strong></p>
-<pre><code>Dados funcionário:
-- Modo: Carro
-- Distância: 20 km (ida e volta)
-- Dias no escritório: 15/mês
-- Fator: 0.203 kg CO2/km (carro médio)
-
-Math Formula Multi-Step:
-Step 1: $Distancia_km$ * $Dias_Mes$ 
-        = 20 * 15 = 300 km/mês
-
-Step 2: $Total_km_mes$ * $Fator_CO2_por_km$
-        = 300 * 0.203 = 60.9 kg CO2/mês
-</code></pre>
-<p><strong>3. Enriquecimento com Dados Externos (Joiner - Capítulo 5)</strong></p>
-<pre><code>Cenário: Adicionar informações de fornecedores
-
-Tabela 1: Gastos com fornecedores
-Fornecedor_ID | Valor_EUR | Categoria
-
-Tabela 2: Fatores de emissão por categoria
-Categoria | Fator_CO2_por_EUR | Fonte
-
-Joiner Node:
-- Join Column: Categoria
-- Join Type: Inner Join
-- Resultado: Tabela enriquecida com fatores
-
-Math Formula:
-$Valor_EUR$ * $Fator_CO2_por_EUR$ = Emissão Scope 3
-</code></pre>
-<p><strong>4. Agregação de Métricas (Group By - Capítulo 3)</strong></p>
-<pre><code>Group By para Relatório Mensal:
-
-Input: 365 dias de dados de energia
-
-Group By:
-- Group Column: Mês
-- Aggregations:
-  * Consumo_kWh: SUM
-  * Emissao_CO2_kg: SUM
-  * Custo_EUR: SUM
-
-Output: 12 linhas (uma por mês) com totais
-
-Uso: Dashboard executivo mensal
-</code></pre>
-<hr />
-<h4>3.2.3 Data Pipelining para ESG</h4>
-<p><strong>A. Conexão com Múltiplas Fontes</strong></p>
-<p><strong>Cenário Real de ESG:</strong></p>
-<pre><code>Dados necessários mensalmente:
-1. Consumo energia → Excel de cada unidade (20 arquivos)
-2. Viagens corporativas → Sistema SAP
-3. Fatores de emissão → Database MySQL atualizado
-4. Dados de commute → Google Forms
-5. Sensores IoT → REST API em tempo real
-</code></pre>
-<p><strong>Implementação KNIME:</strong></p>
-<pre><code>Workflow: Pipeline_Mensal_ESG
-
-[Loop através de 20 arquivos Excel]
-List Files/Folders → 
-Table Row to Variable Loop Start →
-Excel Reader (knime://knime.workflow/../energia/*.xlsx) →
-Loop End (concatenate)
-→ Dados consolidados de energia
-
-[Conexão SAP]
-SAP Connector →
-DB Table Selector (VIAGENS_2024) →
-DB Reader
-→ Dados de viagens
-
-[MySQL - Fatores]
-MySQL Connector →
-DB Reader (SELECT * FROM fatores_emissao WHERE ano=2024)
-→ Tabela de fatores atualizada
-
-[Google Forms via API]
-GET Request →
-JSON Path →
-JSON to Table
-→ Dados de commute
-
-[Sensores IoT]
-REST Client →
-JSON to Table →
-Aggregate por dia
-→ Dados de HVAC em tempo real
-
-[Consolidação]
-Todos os fluxos → Joiner múltiplos → Tabela master ESG
-</code></pre>
-<hr />
-<p><strong>B. Publicação para Stakeholders</strong></p>
-<p><strong>Outputs Necessários em ESG:</strong></p>
-<ol>
-<li><strong>Para Auditoria Externa (CSV Writer - Capítulo 2)</strong><br />
-   ```<br />
-   CSV Writer:<br />
-   - Arquivo: "Emissoes_Scope123_2024_v1.2_auditoria.csv"<br />
-   - Separador: ; (padrão europeu)<br />
-   - Encoding: UTF-8<br />
-   - Include Headers: Sim<br />
-   - Timestamp no nome do arquivo</li>
-</ol>
-<p>Uso: Envio para auditor externo (TÜV, Bureau Veritas)<br />
-   ```</p>
-<ol start="2">
-<li><strong>Para Banco Corporativo (DB Writer - Capítulo 3)</strong><br />
-   ```<br />
-   DB Writer:<br />
-   - Tabela: ESG_EMISSIONS_MONTHLY<br />
-   - Action: Append<br />
-   - Include RowID: Não<br />
-   - Batch size: 1000</li>
-</ol>
-<p>Uso: Alimenta Power BI corporativo<br />
-   ```</p>
-<ol start="3">
-<li><strong>Para Relatório Executivo (Excel Writer)</strong><br />
-   ```<br />
-   Excel Writer:<br />
-   - Multiple Sheets:<ul>
-<li>"Dashboard": Métricas principais</li>
-<li>"Scope 1": Detalhamento</li>
-<li>"Scope 2": Detalhamento</li>
-<li>"Scope 3": Detalhamento</li>
-<li>"Evolução": Série histórica</li>
-<li>Formatação: Cores corporativas</li>
-<li>Charts: Gráficos automáticos</li>
-</ul>
-</li>
-</ol>
-<p>Uso: Apresentação para C-Level<br />
-   ```</p>
-<ol start="4">
-<li><strong>Para Relatório GRI (PDF via Dashboard)</strong><br />
-   ```<br />
-   Dashboard Component →<br />
-   PDF Export:<br />
-   - Template GRI padrão<br />
-   - Todas as métricas obrigatórias<br />
-   - Gráficos de evolução<br />
-   - Tabelas de suporte</li>
-</ol>
-<p>Uso: Relatório anual de sustentabilidade<br />
-   ```</p>
-<hr />
-<h3>3.3 Machine Learning para ESG</h3>
-<p><strong>Conceito:</strong> Usar ML para melhorar previsões e identificar padrões.</p>
-<p><strong>Aplicações em ESG:</strong></p>
-<ol>
-<li><strong>Previsão de Consumo (Normalizer)</strong><br />
-   ```<br />
-   Normalizer:<br />
-   - Normaliza consumo histórico<br />
-   - Detecta padrões sazonais<br />
-   - Permite previsão de próximos meses</li>
-</ol>
-<p>Use case: Orçamento de carbono anual<br />
-   ```</p>
-<ol start="2">
-<li><strong>Detecção de Anomalias</strong><br />
-   ```<br />
-   Decision Tree:<br />
-   - Treina com dados históricos "normais"<br />
-   - Identifica consumos anômalos<br />
-   - Alerta para investigação</li>
-</ol>
-<p>Use case: Vazamento de gás, equipamento com defeito<br />
-   ```</p>
-<ol start="3">
-<li><strong>Classificação Automática de Gastos</strong><br />
-   ```<br />
-   Naive Bayes:<br />
-   - Treina com gastos já classificados (Scope 1/2/3)<br />
-   - Classifica novos gastos automaticamente<br />
-   - Reduz trabalho manual</li>
-</ol>
-<p>Use case: Centenas de itens de Scope 3 mensalmente<br />
-   ```</p>
-<hr />
-<h3>3.4 Operacionalização para Produção ESG</h3>
-<p><strong>Cenário:</strong> Relatório mensal obrigatório para CVM.</p>
-<p><strong>Workflow de Produção:</strong></p>
-<pre><code>[Workflow: Relatorio_Mensal_CVM_Automatizado]
-
-1. Particionamento de Dados:
-   Row Sampling → Separa mês corrente
-
-2. Concatenate:
-   Histórico + Mês corrente → Série temporal completa
-
-3. Metanode: Processamento_Padrao_ESG_v2.0
-   ├─ Validação
-   ├─ Cálculos
-   └─ Agregações
-
-4. Metanode: Dashboard_CVM_Template
-   ├─ Gráficos obrigatórios
-   ├─ Tabelas regulatórias
-   └─ Notas explicativas
-
-5. Outputs:
-   ├─ DB Writer → Banco corporativo
-   ├─ Excel Writer → Arquivo para CVM
-   ├─ PDF Export → Arquivo interno
-   └─ Email → Notifica compliance
-
-Agendamento: 5º dia útil de cada mês, 8h
-Execução: 25 minutos
-Validação: Automática com alertas
-</code></pre>
-<p><strong>Benefícios:</strong><br />
-- ✅ Zero intervenção manual<br />
-- ✅ 100% conformidade<br />
-- ✅ Auditável completamente<br />
-- ✅ Reproduzível instantaneamente</p>
-<hr />
-<h2>Parte 4: Workflows Práticos para ESG</h2>
-<h3>Workflow 1: Consolidação de Dados de Energia</h3>
-<p><strong>Objetivo:</strong> Coletar consumo energético de 15 unidades e calcular Scope 2.</p>
-<p><strong>Implementação:</strong></p>
-<pre><code>List Files (pasta energia/) →
-Loop Start (para cada arquivo) →
-  Excel Reader →
-  Column Filter (colunas relevantes) →
-  Row Filter (remove totais e headers extras) →
-  String Manipulation (padroniza unidade) →
-  Math Formula (converte para kWh se necessário) →
-Loop End (concatenate todas unidades) →
-DB Reader (fatores de emissão por região) →
-Joiner (dados x fatores) →
-Math Formula (consumo * fator = CO2) →
-Group By (totaliza por unidade e mês) →
-Excel Writer (relatório Scope 2)
-</code></pre>
-<p><strong>Nodes Utilizados:</strong><br />
-- List Files/Folders<br />
-- Table Row to Variable Loop Start/End<br />
-- Excel Reader<br />
-- Column Filter<br />
-- Row Filter<br />
-- String Manipulation<br />
-- Math Formula<br />
-- DB Reader<br />
-- Joiner<br />
-- Group By<br />
-- Excel Writer</p>
-<p><strong>Tempo de Execução:</strong> 5 minutos (vs. 4 horas manual)</p>
-<hr />
-<h3>Workflow 2: Cálculo de Scope 3 - Employee Commute</h3>
-<p><strong>Objetivo:</strong> Calcular emissões de deslocamento de funcionários.</p>
-<p><strong>Implementação:</strong></p>
-<pre><code>Excel Reader (dados de commute survey) →
-Row Filter (remove não respondentes) →
-Rule Engine (valida distâncias) →
-DB Reader (fatores por modo de transporte) →
-Joiner (commute x fatores) →
-Math Formula (distância * dias * fator) →
-Group By (agrega por departamento) →
-Sorter (ordena por emissão) →
-Bar Chart (visualização) →
-Excel Writer (relatório Scope 3 - Commute)
-</code></pre>
-<p><strong>Exemplo de Cálculo:</strong></p>
-<pre><code>Funcionário: João Silva
-Modo: Carro
-Distância: 25 km (ida e volta)
-Dias/mês: 20
-Fator: 0.203 kg CO2/km
-
-Math Formula:
-25 km * 20 dias * 0.203 kg/km = 101.5 kg CO2/mês
-</code></pre>
-<hr />
-<h3>Workflow 3: Análise Completa de Scopes 1, 2 e 3</h3>
-<p><strong>Objetivo:</strong> Consolidar todos os scopes em um dashboard único.</p>
-<p><strong>Implementação:</strong></p>
-<pre><code>[Branch 1: Scope 1]
-Excel Reader (combustíveis) →
-Math Formula (combustível → CO2) →
-Column Expressions (adiciona &quot;Scope 1&quot;)
-
-[Branch 2: Scope 2]  
-Excel Reader (energia) →
-Joiner (fatores grid) →
-Math Formula (energia → CO2) →
-Column Expressions (adiciona &quot;Scope 2&quot;)
-
-[Branch 3.1: Scope 3 - Viagens]
-SAP Connector → DB Reader →
-Math Formula (km → CO2) →
-Column Expressions (adiciona &quot;Scope 3 - Viagens&quot;)
-
-[Branch 3.2: Scope 3 - Marketing]
-Excel Reader (gastos marketing) →
-Joiner (fatores financeiros) →
-Math Formula (EUR → CO2) →
-Column Expressions (adiciona &quot;Scope 3 - Marketing&quot;)
-
-[Branch 3.3: Scope 3 - Commute]
-[Workflow 2 acima]
-
-[Consolidação]
-Concatenate (todos branches) →
-Pivoting (para visualização) →
-Group By (totais por scope) →
-[Metanode: Dashboard_Corporativo]
-  ├─ Pie Chart (% por scope)
-  ├─ Bar Chart (kg CO2 por categoria)
-  ├─ Line Chart (evolução temporal)
-  └─ KPI Nodes (totais e médias)
-→ Component (dashboard interativo)
-→ PDF Export (relatório anual)
-</code></pre>
-<p><strong>Nodes Utilizados:</strong><br />
-- Excel Reader<br />
-- SAP Connector<br />
-- DB Reader<br />
-- Joiner<br />
-- Math Formula<br />
-- Concatenate<br />
-- Pivoting<br />
-- Group By<br />
-- Visualizations<br />
-- Metanode<br />
-- Component</p>
-<hr />
-<h3>Workflow 4: Preparação para Auditoria ESG</h3>
-<p><strong>Objetivo:</strong> Criar dataset rastreável para auditoria externa.</p>
-<p><strong>Implementação:</strong></p>
-<pre><code>[Coleta de Dados]
-Multiple Readers (todas fontes) →
-
-[Validação e Documentação]
-Metanode: Validação_Auditoria
-  ├─ Rule Engine (15 regras de conformidade)
-  ├─ Missing Value (documenta tratamento)
-  ├─ Math Formula (adiciona checksums)
-  └─ Column Expressions (adiciona metadata)
-
-[Cálculos com Rastreabilidade]
-Math Formula (adiciona ID de transação único) →
-Math Formula (cálculos CO2) →
-Column Expressions (data/hora de processamento) →
-Column Expressions (versão do workflow) →
-
-[Preparação Final]
-Sorter (ordem cronológica) →
-Column Resorter (ordem lógica para auditoria) →
-Excel Writer (múltiplas abas):
-  * Aba 1: Dados brutos
-  * Aba 2: Validações aplicadas
-  * Aba 3: Cálculos detalhados
-  * Aba 4: Fatores de emissão utilizados
-  * Aba 5: Resumo executivo
-  * Aba 6: Metadados (versão, data, responsável)
-</code></pre>
-<p><strong>Diferenciais para Auditoria:</strong><br />
-- ✅ Cada linha tem ID único<br />
-- ✅ Timestamp de processamento<br />
-- ✅ Versão do workflow registrada<br />
-- ✅ Regras de validação documentadas<br />
-- ✅ Fatores de emissão com fonte<br />
-- ✅ 100% rastreável</p>
-<hr />
-<h2>Parte 5: Melhores Práticas para ESG</h2>
-<h3>5.1 Organização de Workflows ESG</h3>
-<ol>
-<li>
-<p><strong>Estrutura de Pastas Recomendada</strong><br />
-<code>/ESG_Workflows
-   ├── Coleta_Dados.knwf
-   ├── Validacao.knwf
-   ├── Calculos.knwf
-   └── Dashboard_Mensal.knwf</code></p>
-</li>
-<li>
-<p><strong>Naming Convention para ESG</strong><br />
-   ```<br />
-   Bom: "Calc_Scope2_Energia_Eletrica_2024"<br />
-   Ruim: "Node 27"</p>
-</li>
-</ol>
-<p>Bom: "Valida_Fatores_Emissao_UK_2023"<br />
-   Ruim: "Rule Engine"<br />
-   ```</p>
-<ol start="3">
-<li><strong>Metanodes para Processos Críticos</strong><br />
-<code>[Metanode: Calculo_CO2_Energia_v1.3]
-   Descrição: Calcula emissões Scope 2 conforme metodologia GHG Protocol
-   Input: Consumo em kWh por unidade/mês
-   Process:
-   ├─ Joiner (fatores grid Brasil 2024)
-   ├─ Math Formula (consumo * fator)
-   └─ Unit Conversion (se necessário)
-   Output: kg CO2e por unidade/mês
-   Versão: 1.3 (atualizado Jan/2025)
-   Responsável: Equipe ESG
-   Auditado: Sim (TÜV SÜD, Dez/2024)</code></li>
-</ol>
-<hr />
-<h3>5.2 Qualidade e Conformidade ESG</h3>
-<p><strong>Checklist de Qualidade para Dados ESG:</strong></p>
-<ol>
-<li>
-<p><strong>Completude</strong><br />
-<code>- [ ] Todos os scopes representados?
-   - [ ] Dados de todas as unidades?
-   - [ ] Período completo (12 meses)?
-   - [ ] Fatores de emissão atualizados?</code></p>
-</li>
-<li>
-<p><strong>Consistência</strong><br />
-<code>- [ ] Unidades de medida padronizadas?
-   - [ ] Nomenclatura uniforme?
-   - [ ] Categorias alinhadas com GHG Protocol?
-   - [ ] Fatores da mesma fonte/ano?</code></p>
-</li>
-<li>
-<p><strong>Acurácia</strong><br />
-<code>- [ ] Valores dentro de ranges esperados?
-   - [ ] Outliers investigados?
-   - [ ] Cross-check com dados anteriores?
-   - [ ] Cálculos validados por amostragem?</code></p>
-</li>
-<li>
-<p><strong>Rastreabilidade</strong><br />
-<code>- [ ] Fonte de cada dado documentada?
-   - [ ] Transformações aplicadas registradas?
-   - [ ] Versão de fatores identificada?
-   - [ ] Data de extração/processamento?</code></p>
-</li>
-</ol>
-<p><strong>Implementação no KNIME:</strong></p>
-<pre><code>Metanode: Validacao_Qualidade_ESG
-
-Input: Dataset ESG bruto
-
-[Completude]
-Missing Value → Contagem de nulos
-Rule Engine → Marca registros incompletos
-
-[Consistência]
-String Manipulation → Padroniza unidades
-Rule Engine → Valida categorias GHG
-
-[Acurácia]
-Statistics → Detecta outliers (&gt;3 std dev)
-Rule Engine → Valida ranges por tipo
-
-[Rastreabilidade]
-Column Expressions → Adiciona metadata
-Math Formula → Gera hash de controle
-
-Output: 
-├─ Dataset validado
-├─ Relatório de qualidade (% passa/falha)
-└─ Log de issues para investigação
-</code></pre>
-<hr />
-<h3>5.3 Performance em Workflows ESG</h3>
-<p><strong>Otimizações Comuns:</strong></p>
-<ol>
-<li><strong>Filtragem Antecipada</strong><br />
-   ```<br />
-   ❌ Lento:<br />
-   CSV Reader (365 dias, 50 colunas) →<br />
-   Joiner → Math Formula → Column Filter → Row Filter</li>
-</ol>
-<p>✅ Rápido:<br />
-   CSV Reader →<br />
-   Column Filter (5 colunas necessárias) →<br />
-   Row Filter (apenas Q4 2024) →<br />
-   Joiner → Math Formula</p>
-<p>Ganho: 60% mais rápido<br />
-   ```</p>
-<ol start="2">
-<li><strong>Uso de Database para Grandes Volumes</strong><br />
-   ```<br />
-   Cenário: 5 anos de dados horários de energia (43.800 registros)</li>
-</ol>
-<p>❌ Lento:<br />
-   CSV Reader (43.800 linhas) → Processar tudo no KNIME</p>
-<p>✅ Rápido:<br />
-   DB Reader com SQL otimizado:<br />
-   SELECT unidade, SUM(consumo_kwh), AVG(consumo_kwh)<br />
-   FROM energia<br />
-   WHERE ano = 2024 AND mes IN (10,11,12)<br />
-   GROUP BY unidade</p>
-<p>→ Retorna apenas 45 linhas agregadas<br />
-   → 50x mais rápido<br />
-   ```</p>
-<ol start="3">
-<li><strong>Paralelização de Cálculos (Advanced)</strong><br />
-   ```<br />
-   15 unidades para processar:</li>
-</ol>
-<p>Sequencial: 15 min (1 min por unidade)</p>
-<p>Paralelo com Parallel Chunk Loop:<br />
-   - Divide em 3 chunks de 5 unidades<br />
-   - Processa simultâneo<br />
-   - Resultado: 5 min (3x mais rápido)<br />
-   ```</p>
-<hr />
-<h2>Parte 6: Checklist Completo para ESG</h2>
-<h3>Checklist de Preparação de Dados ESG</h3>
-<h4>☐ 1. Descoberta</h4>
-<ul>
-<li>[ ] Identificar fontes de dados (energia, viagens, fornecedores)</li>
-<li>[ ] Verificar disponibilidade de dados históricos</li>
-<li>[ ] Confirmar unidades de medida (kWh, km, EUR)</li>
-<li>[ ] Analisar completude (missing values)</li>
-<li>[ ] Detectar outliers e inconsistências</li>
-</ul>
-<h4>☐ 2. Coleta</h4>
-<ul>
-<li>[ ] Configurar conectores (Excel, SAP, MySQL, APIs)</li>
-<li>[ ] Automatizar leitura de múltiplas fontes</li>
-<li>[ ] Implementar loops para arquivos múltiplos</li>
-<li>[ ] Validar encoding e formatos</li>
-<li>[ ] Testar conectividade</li>
-</ul>
-<h4>☐ 3. Estruturação</h4>
-<ul>
-<li>[ ] Consolidar dados em formato tabular único</li>
-<li>[ ] Unpivot quando necessário</li>
-<li>[ ] Padronizar nomes de colunas</li>
-<li>[ ] Adicionar metadados (fonte, data extração)</li>
-<li>[ ] Criar chave única por registro</li>
-</ul>
-<h4>☐ 4. Validação</h4>
-<ul>
-<li>[ ] Aplicar regras de negócio ESG</li>
-<li>[ ] Validar consistência com GHG Protocol</li>
-<li>[ ] Verificar ranges esperados</li>
-<li>[ ] Tratar ou documentar missing values</li>
-<li>[ ] Gerar relatório de qualidade</li>
-</ul>
-<h4>☐ 5. Enriquecimento</h4>
-<ul>
-<li>[ ] Joinar com fatores de emissão atualizados</li>
-<li>[ ] Adicionar informações de unidades (área, # funcionários)</li>
-<li>[ ] Calcular métricas derivadas (CO2/m², CO2/funcionário)</li>
-<li>[ ] Classificar por Scope (1, 2, 3)</li>
-<li>[ ] Adicionar contexto (região, setor)</li>
-</ul>
-<h4>☐ 6. Cálculos</h4>
-<ul>
-<li>[ ] Aplicar fórmulas de CO2 por scope</li>
-<li>[ ] Converter unidades quando necessário</li>
-<li>[ ] Agregar por dimensões relevantes (tempo, unidade)</li>
-<li>[ ] Calcular totais e médias</li>
-<li>[ ] Validar resultados com amostragem manual</li>
-</ul>
-<h4>☐ 7. Conformidade</h4>
-<ul>
-<li>[ ] Verificar alinhamento com GRI</li>
-<li>[ ] Confirmar requisitos SASB</li>
-<li>[ ] Validar obrigações CVM</li>
-<li>[ ] Preparar evidências para auditoria</li>
-<li>[ ] Documentar metodologia aplicada</li>
-</ul>
-<h4>☐ 8. Publicação</h4>
-<ul>
-<li>[ ] Gerar relatórios regulatórios (GRI, SASB, CVM)</li>
-<li>[ ] Criar dashboard executivo</li>
-<li>[ ] Exportar para banco corporativo</li>
-<li>[ ] Preparar arquivo de auditoria</li>
-<li>[ ] Versionamento e backup</li>
-</ul>
-<hr />
-<h2>Parte 7: Referência Rápida ESG</h2>
-<h3>Nodes Essenciais para ESG</h3>
-<h4>Conexão e Leitura</h4>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Uso em ESG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>CSV Reader</td>
-<td>Dados de energia, fornecedores</td>
-</tr>
-<tr>
-<td>Excel Reader</td>
-<td>Relatórios de unidades, surveys</td>
-</tr>
-<tr>
-<td>DB Reader</td>
-<td>Fatores de emissão, histórico</td>
-</tr>
-<tr>
-<td>SAP Connector</td>
-<td>Viagens corporativas, custos</td>
-</tr>
-<tr>
-<td>REST Client</td>
-<td>APIs de IoT, sensores</td>
-</tr>
-</tbody>
-</table>
-<h4>Preparação de Dados</h4>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Uso em ESG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Column Filter</td>
-<td>Selecionar apenas colunas ESG relevantes</td>
-</tr>
-<tr>
-<td>Row Filter</td>
-<td>Filtrar período de reporte</td>
-</tr>
-<tr>
-<td>String Manipulation</td>
-<td>Padronizar unidades, categorias</td>
-</tr>
-<tr>
-<td>Missing Value</td>
-<td>Tratar dados faltantes com política ESG</td>
-</tr>
-<tr>
-<td>Rule Engine</td>
-<td>Validar regras de conformidade</td>
-</tr>
-</tbody>
-</table>
-<h4>Cálculos ESG</h4>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Uso em ESG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Math Formula</td>
-<td>Calcular CO2 (consumo * fator)</td>
-</tr>
-<tr>
-<td>Joiner</td>
-<td>Combinar dados com fatores de emissão</td>
-</tr>
-<tr>
-<td>Group By</td>
-<td>Agregar por scope, unidade, mês</td>
-</tr>
-<tr>
-<td>Normalizer</td>
-<td>Preparar para análise comparativa</td>
-</tr>
-<tr>
-<td>Sorter</td>
-<td>Ordenar unidades por emissão</td>
-</tr>
-</tbody>
-</table>
-<h4>Visualização e Reporte</h4>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Uso em ESG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Bar Chart</td>
-<td>Emissões por categoria</td>
-</tr>
-<tr>
-<td>Pie Chart</td>
-<td>Distribuição de scopes</td>
-</tr>
-<tr>
-<td>Line Plot</td>
-<td>Evolução temporal</td>
-</tr>
-<tr>
-<td>Scatter Plot</td>
-<td>Correlações (consumo vs. área)</td>
-</tr>
-<tr>
-<td>Dashboard</td>
-<td>Relatório interativo</td>
-</tr>
-</tbody>
-</table>
-<h4>Auditoria e Governança</h4>
-<table>
-<thead>
-<tr>
-<th>Node</th>
-<th>Uso em ESG</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Metanode</td>
-<td>Encapsular processos auditáveis</td>
-</tr>
-<tr>
-<td>Component</td>
-<td>Compartilhar calculadoras padrão</td>
-</tr>
-<tr>
-<td>CSV/Excel Writer</td>
-<td>Evidências para auditoria</td>
-</tr>
-<tr>
-<td>Column Expressions</td>
-<td>Adicionar metadata, timestamps</td>
-</tr>
-</tbody>
-</table>
-<hr />
-<h2>Parte 8: CASO PRÁTICO COMPLETO</h2>
-<h1>Tracking de Emissões de CO2 com KNIME</h1>
-<blockquote>
-<p><strong>Workflow disponível gratuitamente no KNIME Hub:</strong><br />
-https://hub.knime.com/knime/spaces/KNIME%20for%20Finance/KPI/CO2%20Emissions/</p>
-</blockquote>
-<hr />
-<h2>Contexto: Metas de Descarbonização</h2>
-<p>A União Europeia estabeleceu metas ambiciosas:<br />
-- <strong>Reduzir emissões em 50% até 2030</strong><br />
-- <strong>Atingir neutralidade de carbono até 2050</strong></p>
-<p>Setores como aquecimento, transporte e produção de alimentos estão sob pressão crescente para reduzir seu impacto ambiental.</p>
-<p><strong>Desafio:</strong> Apesar de diversos padrões internacionais (GRI, SASB, GHG Protocol), não há um método universalmente aceito para medir com precisão as emissões de CO2 de uma organização.</p>
-<p><strong>Solução Adotada:</strong> Greenhouse Gas Protocol (GHGP), framework amplamente reconhecido que categoriza emissões em três scopes.</p>
-<hr />
-<h2>O Framework: Greenhouse Gas Protocol (GHGP)</h2>
-<h3>Os Três Scopes</h3>
-<p><strong>Scope 1: Emissões Diretas</strong><br />
-- Fontes possuídas ou controladas pela empresa<br />
-- Exemplos: combustão de combustíveis fósseis, frota própria</p>
-<p><strong>Scope 2: Emissões Indiretas de Energia</strong><br />
-- Consumo de energia comprada<br />
-- Exemplos: eletricidade, aquecimento, refrigeração</p>
-<p><strong>Scope 3: Emissões Indiretas da Cadeia de Valor</strong><br />
-- Toda a cadeia de valor da empresa<br />
-- Exemplos: bens comprados, viagens de negócios, commute de funcionários, marketing</p>
-<hr />
-<h2>O Caso: Empresa de Software de Médio Porte</h2>
-<h3>Perfil da Empresa</h3>
-<ul>
-<li>Tipo: Software company</li>
-<li>Tamanho: Médio porte (~100-200 funcionários)</li>
-<li>Política: Trabalho híbrido (remoto + escritório)</li>
-<li>Atividades principais: Desenvolvimento de software, marketing, pesquisa</li>
-</ul>
-<h3>Fontes de Emissão Identificadas</h3>
-<ol>
-<li>
-<p><strong>Energia e HVAC</strong> (Scope 2)<br />
-   - Eletricidade dos escritórios<br />
-   - Aquecimento, Ventilação e Ar Condicionado</p>
-</li>
-<li>
-<p><strong>Commute de Funcionários</strong> (Scope 3)<br />
-   - Deslocamento casa-trabalho<br />
-   - Múltiplos modos de transporte</p>
-</li>
-<li>
-<p><strong>Publicidade e Pesquisa de Mercado</strong> (Scope 3)<br />
-   - Campanhas de marketing terceirizadas<br />
-   - Serviços de agências externas</p>
-</li>
-</ol>
-<hr />
-<h2>Os Dados Utilizados</h2>
-<h3>1. Energia e HVAC</h3>
-<p><strong>Atividade:</strong> Consumo de energia nos escritórios (dispositivos + HVAC)</p>
-<p><strong>Geração dos Dados:</strong><br />
-- Baseado em perfil energético real de empresa de software de médio porte<br />
-- Simulado com Commercial Energy Calculator (Union Power Cooperative)<br />
-- Distribuição normal realista</p>
-<p><strong>Granularidade:</strong> Consumo diário em kWh por um ano completo</p>
-<p><strong>Dataset Example:</strong></p>
-<pre><code>Data       | Consumo_kWh | Tipo
-2024-01-01 | 5.230      | Eletricidade
-2024-01-01 | 1.420      | HVAC
-2024-01-02 | 5.180      | Eletricidade
-2024-01-02 | 1.390      | HVAC
-</code></pre>
-<hr />
-<h3>2. Commute e Presença de Funcionários</h3>
-<p><strong>Atividade:</strong> Rastreamento de presença no escritório e detalhes de deslocamento</p>
-<p><strong>Geração dos Dados:</strong><br />
-- Survey preliminar com funcionários KNIME<br />
-- Informações coletadas: modo de transporte, frequência, distância<br />
-- Reflete política de trabalho híbrido</p>
-<p><strong>Dois Datasets:</strong></p>
-<p><strong>Dataset 1: Modos de Commute</strong></p>
-<pre><code>Funcionario_ID | Modo_Transporte | Distancia_km
-E001          | Carro          | 25
-E002          | Transporte Público | 15
-E003          | A pé           | 2
-E004          | Bicicleta      | 8
-</code></pre>
-<p><strong>Dataset 2: Registro de Presença</strong></p>
-<pre><code>Data       | Funcionario_ID | No_Escritorio
-2024-01-01 | E001          | Sim
-2024-01-01 | E002          | Não
-2024-01-02 | E001          | Sim
-</code></pre>
-<hr />
-<h3>3. Publicidade e Pesquisa de Mercado</h3>
-<p><strong>Atividade:</strong> Gastos com agências de marketing e pesquisa externa</p>
-<p><strong>Contexto:</strong> Empresa terceiriza completamente suas atividades de marketing:<br />
-- Pesquisa de mercado<br />
-- Publicidade digital<br />
-- Atividades promocionais</p>
-<p>Embora não realize diretamente, os gastos com estes serviços contribuem para a pegada de carbono (Scope 3).</p>
-<p><strong>Geração dos Dados:</strong><br />
-- Estimativa baseada em receita típica para empresas deste porte<br />
-- Benchmarks de gastos com marketing (Gartner CMO Survey 2024)</p>
-<p><strong>Dataset Example:</strong></p>
-<pre><code>Mes    | Categoria            | Gasto_EUR
-Jan-24 | Pesquisa_Mercado    | 8.500
-Jan-24 | Publicidade_Digital | 12.000
-Jan-24 | Promocoes           | 6.500
-Fev-24 | Pesquisa_Mercado    | 9.200
-</code></pre>
-<hr />
-<h2>Estratégias de Cálculo de CO2</h2>
-<h3>Fórmula Geral</h3>
-<pre><code>CO2 Emissions (kg) = Activity Data × CO2 Emission Coefficient
-</code></pre>
-<h3>Fonte de Coeficientes</h3>
-<ol>
-<li>
-<p><strong>UK Government - Greenhouse Gas Reporting 2023</strong><br />
-   - Coeficientes para eletricidade, transportes, combustíveis<br />
-   - Fonte: https://www.gov.uk/government/publications/greenhouse-gas-reporting-conversion-factors-2023</p>
-</li>
-<li>
-<p><strong>Prof. Dr. Erdal Yalcin (University of Applied Sciences Konstanz)</strong><br />
-   - Coeficientes baseados em custos financeiros<br />
-   - Para atividades onde consumo de recursos é difícil de quantificar<br />
-   - Estimativas acadêmicas validadas</p>
-</li>
-</ol>
-<hr />
-<h3>Exemplos de Cálculo</h3>
-<h4>Exemplo 1: Commute a Pé (Coeficiente = 0)</h4>
-<pre><code>CO2 Emissions = 0 (kg/km) × Distance Walked (km) = 0 kg
-
-Interpretação: Caminhar não produz emissões de CO2
-</code></pre>
-<h4>Exemplo 2: Commute de Carro</h4>
-<pre><code>Dados:
-- Distância: 100 km
-- Coeficiente: 0.203 kg CO2/km (carro médio)
-
-Cálculo:
-CO2 Emissions = 0.203 (kg/km) × 100 km = 20.3 kg
-</code></pre>
-<h4>Exemplo 3: Campanha de Marketing (baseado em custo)</h4>
-<pre><code>Dados:
-- Custo da campanha: €27.000
-- Coeficiente: 0.07037 kg CO2/€ (Prof. Yalcin)
-
-Cálculo:
-CO2 Emissions = 0.07037 (kg/€) × €27.000 = 1.890 kg
-</code></pre>
-<hr />
-<h2>O Workflow KNIME: Visão Geral</h2>
-<h3>Estrutura do Workflow</h3>
-<p>O workflow <strong>CO2 Emission Tracker</strong> está dividido em três seções principais, cada uma correspondendo às atividades da empresa:</p>
-<ol>
-<li><strong>Energy Consumption and HVAC Usage</strong></li>
-<li><strong>Employee Commute and Attendance</strong></li>
-<li><strong>Advertising and Marketing Research</strong></li>
-</ol>
-<p>Para cada atividade:<br />
-- ✅ CO2 emissions são computados<br />
-- ✅ Scopes são atribuídos<br />
-- ✅ Insights são apresentados em dashboard interativo</p>
-<p>![Workflow Overview - Disponível no KNIME Hub]</p>
-<hr />
-<h2>Implementação Detalhada no KNIME</h2>
-<h3>Etapa 1: Leitura de Fatores de Emissão</h3>
-<p><strong>Objetivo:</strong> Acessar e parsear coeficientes de conversão CO2</p>
-<p><strong>Fontes:</strong><br />
-1. UK Government - Greenhouse Gas Reporting 2023<br />
-2. Prof. Dr. Erdal Yalcin (University of Konstanz)</p>
-<p><strong>Implementação:</strong></p>
-<pre><code>CSV Reader (UK Gov factors) →
-Excel Reader (Yalcin factors) →
-Data Preprocessing →
-Lookup Tables (prontas para join)
-</code></pre>
-<p><strong>Exemplo de Tabela de Fatores:</strong></p>
-<pre><code>Modo_Transporte | Fator_CO2_kg_por_km | Fonte
-Carro          | 0.203              | UK Gov 2023
-Motocicleta    | 0.119              | UK Gov 2023
-Transporte Público | 0.065          | UK Gov 2023
-Bicicleta      | 0.000              | UK Gov 2023
-A pé           | 0.000              | UK Gov 2023
-</code></pre>
-<hr />
-<h3>Etapa 2: Cálculo - Energia e HVAC</h3>
-<p><strong>Workflow Section:</strong></p>
-<pre><code>CSV Reader (consumption data) →
-[Metanode: Data Preprocessing]
-  ├─ Column Filter (dados relevantes)
-  ├─ Joiner (match com fatores de emissão)
-  └─ Validation (ranges esperados)
-→ Math Formula (Electricity)
-  Formula: $Consumo_kWh$ * $Fator_CO2_por_kWh$
-→ Math Formula (HVAC)
-  Formula: $Consumo_kWh$ * $Fator_CO2_HVAC$
-→ Concatenate (juntar Electricity + HVAC)
-→ Column Expressions (adiciona &quot;Scope 2&quot;)
-→ Output Table (emissões diárias)
-</code></pre>
-<p><strong>Exemplo de Cálculo Real:</strong></p>
-<pre><code>Data: 15/Jan/2024
-Consumo Eletricidade: 5.230 kWh
-Fator (UK): 0.19338 kg CO2/kWh
-
-Emissão = 5.230 × 0.19338 = 1.011,4 kg CO2
-
-Data: 15/Jan/2024
-Consumo HVAC: 1.420 kWh
-Fator: 0.21233 kg CO2/kWh
-
-Emissão = 1.420 × 0.21233 = 301,5 kg CO2
-
-Total dia: 1.312,9 kg CO2 (Scope 2)
-</code></pre>
-<hr />
-<h3>Etapa 3: Cálculo - Employee Commute</h3>
-<p><strong>Workflow Section:</strong></p>
-<pre><code>CSV Reader (commute modes) →
-CSV Reader (attendance records) →
-[Metanode: Data Preprocessing]
-  ├─ Cross Join (funcionários × dias)
-  ├─ Row Filter (apenas dias presenciais)
-  ├─ Joiner (match commute mode)
-  └─ Joiner (match fatores transporte)
-→ Math Formula (calcular emissão diária)
-  Formula: $Distancia_km$ * $Fator_CO2_por_km$
-→ Group By (agregar por funcionário e modo)
-→ Column Expressions (adiciona &quot;Scope 3&quot;)
-→ Output Table (emissões por commute)
-</code></pre>
-<p><strong>Exemplo de Cálculo Real:</strong></p>
-<pre><code>Funcionário: João Silva (E001)
-Modo: Carro
-Distância (ida e volta): 25 km
-Dias presenciais em Jan: 15 dias
-Fator: 0.203 kg CO2/km
-
-Emissão diária = 25 × 0.203 = 5,075 kg CO2
-Emissão mensal = 5,075 × 15 = 76,125 kg CO2
-
-Funcionário: Maria Santos (E002)
-Modo: Transporte Público
-Distância: 15 km
-Dias presenciais: 18 dias
-Fator: 0.065 kg CO2/km
-
-Emissão diária = 15 × 0.065 = 0,975 kg CO2
-Emissão mensal = 0,975 × 18 = 17,55 kg CO2
-</code></pre>
-<p><strong>Agregação Final:</strong></p>
-<pre><code>Group By Node:
-- Group by: Modo_Transporte
-- Aggregations:
-  * Total_CO2: SUM
-  * Avg_CO2_per_Employee: MEAN
-  * Count_Employees: COUNT
-
-Resultado:
-Carro: 1.250 kg CO2 (40 funcionários)
-Transporte Público: 320 kg CO2 (55 funcionários)
-Bicicleta: 0 kg (15 funcionários)
-A pé: 0 kg (10 funcionários)
-</code></pre>
-<hr />
-<h3>Etapa 4: Cálculo - Publicidade e Marketing</h3>
-<p><strong>Workflow Section:</strong></p>
-<pre><code>CSV Reader (marketing expenses) →
-CSV Reader (Yalcin coefficients) →
-[Metanode: Data Preprocessing]
-  ├─ Column Renamer (padronizar categorias)
-  ├─ Joiner (match categoria → coeficiente)
-  └─ Validation (conferir joins)
-→ Math Formula (emissões diretas)
-  Formula: $Gasto_EUR$ * $Fator_Direto$
-→ Math Formula (emissões indiretas)
-  Formula: $Gasto_EUR$ * $Fator_Indireto$
-→ Math Formula (converter ton → kg)
-  Formula: ($Direto$ + $Indireto$) * 1000
-→ Column Expressions (adiciona &quot;Scope 3&quot;)
-→ Group By (agregar por mês)
-→ Output Table
-</code></pre>
-<p><strong>Coeficientes de Marketing (Prof. Yalcin):</strong></p>
-<pre><code>Categoria               | Fator_Direto | Fator_Indireto
-Pesquisa_Mercado       | 0.05120     | 0.01917
-Publicidade_Digital    | 0.04500     | 0.02537
-Promocoes              | 0.06200     | 0.01800
-</code></pre>
-<p><strong>Exemplo de Cálculo Real:</strong></p>
-<pre><code>Janeiro 2024:
-- Pesquisa de Mercado: €8.500
-- Publicidade Digital: €12.000
-- Promoções: €6.500
-
-Pesquisa:
-Direto: 8.500 × 0.05120 = 435,2
-Indireto: 8.500 × 0.01917 = 162,9
-Total: (435,2 + 162,9) × 1000 = 598.100 kg = 598,1 kg CO2
-
-Publicidade:
-Direto: 12.000 × 0.04500 = 540,0
-Indireto: 12.000 × 0.02537 = 304,4
-Total: 844,4 kg CO2
-
-Promoções:
-Total: 536,0 kg CO2
-
-Janeiro Total (Marketing): 1.978,5 kg CO2 (Scope 3)
-</code></pre>
-<hr />
-<h3>Etapa 5: Atribuição de Scopes</h3>
-<p><strong>Workflow Section:</strong></p>
-<pre><code>[Output: Energy &amp; HVAC] → Column Expressions (Scope = &quot;2&quot;)
-[Output: Commute] → Column Expressions (Scope = &quot;3&quot;)
-[Output: Marketing] → Column Expressions (Scope = &quot;3&quot;)
-→ Concatenate (todos outputs)
-→ Pivoting (preparar para dashboard)
-→ Group By (totais por scope, categoria, mês)
-</code></pre>
-<p><strong>Resultado da Atribuição:</strong></p>
-<pre><code>Categoria            | Scope | CO2_kg_Anual
-Energia Elétrica     | 2     | 45.678
-HVAC                 | 2     | 12.890
-Commute Funcionários | 3     | 8.450
-Marketing            | 3     | 23.720
-
-Total Scope 2: 58.568 kg (11,82%)
-Total Scope 3: 32.170 kg (88,18%)
-Total Geral: 90.738 kg
-</code></pre>
-<hr />
-<h3>Etapa 6: Dashboard Interativo</h3>
-<p><strong>Componentes do Dashboard:</strong></p>
-<ol>
-<li>
-<p><strong>KPIs Principais (Top)</strong><br />
-<code>┌─────────────────────────────────────────────────┐
-   │ Total Anual: 90.738 kg CO2                     │
-   │ Média por Dia: 248,6 kg CO2                    │
-   │ Média por Funcionário: 461,9 kg CO2            │
-   └─────────────────────────────────────────────────┘</code></p>
-</li>
-<li>
-<p><strong>Bar Chart: Emissões por Fonte</strong><br />
-<code>Marketing        ████████████████████ 23.720 kg
-   Energia          ████████████████     45.678 kg
-   HVAC             ██████               12.890 kg
-   Commute          ████                  8.450 kg</code></p>
-</li>
-</ol>
-<p><strong>Insight:</strong> Marketing é a maior fonte de emissões (26,1%)</p>
-<ol start="3">
-<li><strong>Pie Chart: Distribuição por Scope</strong><br />
-<code>Scope 2 (11,82%): Energia + HVAC
-   Scope 3 (88,18%): Marketing + Commute</code></li>
-</ol>
-<p><strong>Insight:</strong> Scope 3 domina - foco em fornecedores e serviços</p>
-<ol start="4">
-<li><strong>Stacked Area Chart: Evolução Temporal</strong><br />
-   ```<br />
-   Visualiza emissões mensais empilhadas por fonte</li>
-</ol>
-<p>Descoberta: Agosto teve pico de emissões<br />
-   Causa: Campanha de marketing intensiva (€45.000)<br />
-   ```</p>
-<ol start="5">
-<li><strong>Line Plot: Tendências</strong><br />
-   ```<br />
-   Mostra evolução de cada fonte ao longo dos 12 meses</li>
-</ol>
-<p>Padrões identificados:<br />
-   - Energia/HVAC: Maior no verão (AC)<br />
-   - Commute: Menor em férias (Julho/Agosto)<br />
-   - Marketing: Picos trimestrais<br />
-   ```</p>
-<ol start="6">
-<li><strong>Filtros Interativos</strong><br />
-   - Período: Mês, Trimestre, Ano<br />
-   - Scope: 1, 2, 3 ou Todos<br />
-   - Fonte: Específica ou Todas<br />
-   - Unidade: Por unidade de negócio</li>
-</ol>
-<hr />
-<h2>Resultados e Insights</h2>
-<h3>Descobertas Principais</h3>
-<ol>
-<li>
-<p><strong>Emissão Média por Funcionário: 461,9 kg CO2/ano</strong><br />
-   - Benchmark: Empresa de software típica ~350-500 kg<br />
-   - Status: Dentro da média do setor</p>
-</li>
-<li>
-<p><strong>Maior Fonte: Publicidade e Marketing (26,1%)</strong><br />
-   - Oportunidade: Negociar com agências certificadas<br />
-   - Ação: Adicionar critério de sustentabilidade na seleção</p>
-</li>
-<li>
-<p><strong>Scope 3 Dominante (88,18%)</strong><br />
-   - Desafio: Maior dificuldade de controle direto<br />
-   - Necessidade: Engajamento de cadeia de suprimentos</p>
-</li>
-<li>
-<p><strong>Pico em Agosto</strong><br />
-   - Causa: Campanha de lançamento de produto<br />
-   - Insight: Planejar campanhas sustentáveis</p>
-</li>
-<li>
-<p><strong>Commute Relativamente Baixo (8,6%)</strong><br />
-   - Motivo: Política de trabalho híbrido efetiva<br />
-   - Benefício: Flexibilidade reduz emissões</p>
-</li>
-</ol>
-<h3>Recomendações de Ações</h3>
-<p><strong>Curto Prazo (3-6 meses):</strong><br />
-1. ✅ Selecionar agências de marketing com certificação ambiental<br />
-2. ✅ Incentivar uso de transporte público (subsídio)<br />
-3. ✅ Aumentar dias de home office opcionais</p>
-<p><strong>Médio Prazo (6-12 meses):</strong><br />
-4. ✅ Investir em energia renovável (solar no escritório)<br />
-5. ✅ Atualizar sistema HVAC para eficiência energética<br />
-6. ✅ Implementar política de viagens sustentáveis</p>
-<p><strong>Longo Prazo (1-2 anos):</strong><br />
-7. ✅ Compensação de carbono certificada (Scope 3)<br />
-8. ✅ Meta: Redução de 30% até 2026<br />
-9. ✅ Certificação: Net Zero até 2030</p>
-<hr />
-<h2>Automação e Produção</h2>
-<h3>Workflow Operacional</h3>
-<p><strong>Frequência:</strong> Mensal (automático)</p>
-<p><strong>Execução:</strong></p>
-<pre><code>[Agendamento: 5º dia útil do mês, 8h]
-
-Workflow: CO2_Tracker_Production
-
-1. File Readers (automático)
-   ├─ Loop: Energia (todas unidades)
-   ├─ API: Attendance system
-   └─ DB: Marketing expenses
-
-2. Processing Pipeline
-   ├─ Validação automática
-   ├─ Cálculos CO2
-   └─ Atribuição de scopes
-
-3. Outputs
-   ├─ Dashboard atualizado
-   ├─ Email → Equipe ESG (relatório PDF)
-   ├─ DB Writer → Data warehouse
-   └─ Excel → Arquivo para backup
-
-Tempo de Execução: 8 minutos
-Status: 100% automatizado
-</code></pre>
-<p><strong>Alertas Configurados:</strong><br />
-- ⚠️ Emissão mensal &gt; 10.000 kg (acima da média)<br />
-- ⚠️ Dados missing &gt; 5%<br />
-- ⚠️ Outlier detectado em qualquer fonte<br />
-- ✅ Execução bem-sucedida</p>
-<hr />
-<h2>Governança e Conformidade</h2>
-<h3>Rastreabilidade Completa</h3>
-<p><strong>Metadata Capturada:</strong></p>
-<pre><code>Cada registro inclui:
-├─ ID único (UUID)
-├─ Data/hora de processamento
-├─ Versão do workflow (v2.3)
-├─ Fonte original do dado
-├─ Fator de emissão utilizado
-├─ Fonte do fator (UK Gov 2023 / Yalcin)
-└─ Usuário que executou
-</code></pre>
-<h3>Preparação para Auditoria</h3>
-<p><strong>Outputs para Auditores:</strong></p>
-<ol>
-<li><strong>Arquivo Mestre (Excel)</strong><br />
-   ```<br />
-   Aba 1: Dados Brutos<br />
-   - Todos inputs sem transformação</li>
-</ol>
-<p>Aba 2: Fatores de Emissão<br />
-   - Tabela completa com fontes</p>
-<p>Aba 3: Cálculos Detalhados<br />
-   - Cada linha: input → fator → CO2</p>
-<p>Aba 4: Validações<br />
-   - Regras aplicadas e status</p>
-<p>Aba 5: Agregações<br />
-   - Totais por scope/categoria/mês</p>
-<p>Aba 6: Metodologia<br />
-   - Documentação do processo<br />
-   ```</p>
-<ol start="2">
-<li>
-<p><strong>Workflow Documentado</strong><br />
-<code>- KNIME workflow exportado (.knwf)
-   - Anotações em cada metanode
-   - Node descriptions detalhadas
-   - Referências a padrões (GHG Protocol)</code></p>
-</li>
-<li>
-<p><strong>Evidências de Validação</strong><br />
-<code>- Screenshots do Statistics Tab
-   - Logs de erros/outliers
-   - Decisões de tratamento documentadas
-   - Aprovações da equipe ESG</code></p>
-</li>
-</ol>
-<hr />
-<h2>Extensões e Próximos Passos</h2>
-<h3>Melhorias Planejadas</h3>
-<ol>
-<li>
-<p><strong>Adicionar Scope 1</strong><br />
-   - Combustão direta (geradores)<br />
-   - Frota de veículos (se houver)<br />
-   - Emissões fugitivas (refrigeração)</p>
-</li>
-<li>
-<p><strong>Granularidade Aumentada</strong><br />
-   - Emissões por projeto<br />
-   - Emissões por cliente<br />
-   - Emissões por produto</p>
-</li>
-<li>
-<p><strong>Previsões com ML</strong><br />
-   - Forecast de emissões futuras<br />
-   - Detecção automática de anomalias<br />
-   - Recomendações automatizadas de ações</p>
-</li>
-<li>
-<p><strong>Integração Extended</strong><br />
-   - API REST para apps mobile<br />
-   - Power BI para dashboards corporativos<br />
-   - Sistema de tickets para ações corretivas</p>
-</li>
-</ol>
-<hr />
-<h2>Como Usar Este Workflow</h2>
-<h3>Download do KNIME Hub</h3>
-<p><strong>Passo 1:</strong> Acesse o KNIME Hub</p>
-<pre><code>URL: https://hub.knime.com/knime/spaces/KNIME%20for%20Finance/KPI/CO2%20Emissions/
-</code></pre>
-<p><strong>Passo 2:</strong> Download</p>
-<pre><code>1. Clique em &quot;Download&quot;
-2. Ou arraste o ícone para o KNIME Analytics Platform
-3. Workflow será adicionado ao seu workspace
-</code></pre>
-<p><strong>Passo 3:</strong> Adapte aos Seus Dados</p>
-<pre><code>Substitua os datasets sintéticos pelos seus dados reais:
-├─ CSV Reader → Seus dados de energia
-├─ Excel Reader → Seu survey de commute
-├─ DB Reader → Seus fatores regionais
-└─ Execute!
-</code></pre>
-<p><strong>Passo 4:</strong> Customize</p>
-<pre><code>Ajuste conforme sua realidade:
-├─ Adicione suas fontes de emissão
-├─ Modifique fatores para sua região
-├─ Personalize dashboard (logo, cores)
-└─ Configure alertas
-</code></pre>
-<hr />
-<h2>Benefícios Comprovados</h2>
-<h3>Comparação: Antes vs. Depois do KNIME</h3>
-<p><strong>Processo Manual (Antes):</strong><br />
-- ⏱️ Tempo: 3-4 dias/mês<br />
-- 💼 Recursos: 2 analistas full-time<br />
-- ⚠️ Erros: 5-10% de inconsistências<br />
-- 📊 Visualização: Estática (Excel)<br />
-- 🔍 Auditoria: Difícil rastreamento<br />
-- 💰 Custo: Alto (horas-homem)</p>
-<p><strong>Processo Automatizado (Depois):</strong><br />
-- ⏱️ Tempo: 25 minutos/mês<br />
-- 💼 Recursos: Execução automática<br />
-- ✅ Erros: &lt;0,1% (validações automáticas)<br />
-- 📊 Visualização: Interativa (dashboard)<br />
-- 🔍 Auditoria: 100% rastreável<br />
-- 💰 Custo: Baixo (processamento automático)</p>
-<p><strong>ROI Medido:</strong><br />
-- 💵 Redução de custos: 70%<br />
-- ⏰ Tempo economizado: 90%<br />
-- 📈 Qualidade dos dados: +95%<br />
-- 🎯 Conformidade: 100%</p>
-<hr />
-<h2>Conclusão do Caso Prático</h2>
-<p>Este caso demonstra como o KNIME Analytics Platform pode:</p>
-<p>✅ <strong>Automatizar completamente</strong> a coleta e processamento de dados ESG<br />
-✅ <strong>Calcular emissões</strong> de CO2 conforme GHG Protocol<br />
-✅ <strong>Garantir conformidade</strong> com padrões internacionais (GRI, SASB)<br />
-✅ <strong>Providenciar rastreabilidade</strong> total para auditorias<br />
-✅ <strong>Gerar insights</strong> acionáveis através de dashboards interativos<br />
-✅ <strong>Reduzir drasticamente</strong> tempo e custo de reporte  </p>
-<p><strong>Próximo passo:</strong> Baixe o workflow e adapte para sua organização!</p>
-<hr />
-<h2>Parte 9: Conectando com Soluções HupData</h2>
-<h3>Por Que HupData?</h3>
-<p>A <strong>HupData</strong> é <strong>Elite Partner KNIME</strong> no Brasil, especializada em soluções de automação e analytics para ESG.</p>
-<p><strong>Experiência Comprovada:</strong><br />
-- ✅ Implementações em empresas líderes<br />
-- ✅ ROI médio de +35% em projetos<br />
-- ✅ Conformidade garantida (CVM, GRI, SASB)<br />
-- ✅ Suporte em português</p>
-<h3>Solução Completa HupData para ESG</h3>
-<p>A solução descrita neste ebook está <strong>disponível para implementação</strong> pela HupData, adaptada às necessidades específicas da sua empresa.</p>
-<p><strong>O Que Está Incluído:</strong></p>
-<ol>
-<li>
-<p><strong>Acesso e Pré-processamento</strong><br />
-   - Importação automática de múltiplas fontes<br />
-   - Limpeza e transformação de dados<br />
-   - Alinhamento de unidades e formatos</p>
-</li>
-<li>
-<p><strong>Cálculo de KPIs</strong><br />
-   - Auditoria de qualidade automatizada<br />
-   - Detecção de gaps e normalização<br />
-   - Cálculos de CO2 para Scopes 1, 2 e 3</p>
-</li>
-<li>
-<p><strong>Relatórios e Monitoramento</strong><br />
-   - Analytics avançado (outliers, previsões)<br />
-   - Dashboards interativos<br />
-   - Compartilhamento cross-departamental</p>
-</li>
-</ol>
-<h3>Benefícios da Automação HupData</h3>
-<table>
-<thead>
-<tr>
-<th>Benefício</th>
-<th>Descrição</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Integração Total</strong></td>
-<td>SAP, Excel, databases, REST APIs</td>
-</tr>
-<tr>
-<td><strong>Cálculos Automatizados</strong></td>
-<td>CO2 por unidade/período automaticamente</td>
-</tr>
-<tr>
-<td><strong>Dashboards Interativos</strong></td>
-<td>Rastreamento temporal e compartilhamento</td>
-</tr>
-<tr>
-<td><strong>Adaptação Ágil</strong></td>
-<td>Ajuste rápido a novos regulamentos</td>
-</tr>
-<tr>
-<td><strong>Governança de Dados</strong></td>
-<td>Workflows versionados e rastreáveis</td>
-</tr>
-<tr>
-<td><strong>Escalabilidade</strong></td>
-<td>Do piloto ao enterprise com facilidade</td>
-</tr>
-<tr>
-<td><strong>Conformidade Garantida</strong></td>
-<td>CVM, GRI, SASB automaticamente</td>
-</tr>
-<tr>
-<td><strong>ROI Comprovado</strong></td>
-<td>+35% em média nos projetos</td>
-</tr>
-</tbody>
-</table>
-<h3>Resultados Esperados</h3>
-<p><strong>70% de Redução</strong> no tempo de coleta<br />
-<strong>100% de Rastreabilidade</strong> dos dados<br />
-<strong>3x Mais Rápido</strong> nos relatórios</p>
-<hr />
-<h3>Cases de Sucesso</h3>
-<h4>🏭 Würth Group</h4>
-<p><strong>Manufatura | Alemanha</strong></p>
-<p>Automatização completa de indicadores ESG em múltiplas unidades europeias.</p>
-<hr />
-<h4>🏢 Software Company</h4>
-<p><strong>Tecnologia | Europa</strong></p>
-<p>Implementação do workflow de CO2 tracking descrito neste ebook.</p>
-<hr />
-<h4>🏦 Instituição Financeira</h4>
-<p><strong>Finanças | Brasil</strong></p>
-<p>Conformidade automática com regulações CVM e relatórios ESG trimestrais.</p>
-<hr />
-<h2>Conclusão Final</h2>
-<h3>O Que Você Aprendeu</h3>
-<p>Neste ebook completo, você viu:</p>
-<ol>
-<li><strong>Fundamentos do KNIME</strong> aplicados a ESG</li>
-<li><strong>Como superar desafios</strong> típicos de dados ESG</li>
-<li><strong>Preparação moderna de dados</strong> com workflows visuais</li>
-<li><strong>Workflows práticos</strong> prontos para usar</li>
-<li><strong>Caso completo de CO2 tracking</strong> com código real</li>
-<li><strong>Melhores práticas</strong> de governança e conformidade</li>
-<li><strong>Caminho para automação</strong> completa</li>
-</ol>
-<h3>Sua Jornada ESG com KNIME</h3>
-<p><strong>Etapa 1: Aprender</strong> ✅<br />
-- Você completou este ebook<br />
-- Entendeu os conceitos fundamentais<br />
-- Viu exemplos práticos reais</p>
-<p><strong>Etapa 2: Experimentar</strong> 🔄<br />
-- Baixe o workflow do KNIME Hub<br />
-- Teste com seus dados<br />
-- Adapte aos seus processos</p>
-<p><strong>Etapa 3: Implementar</strong> 🚀<br />
-- Crie seus próprios workflows<br />
-- Automatize processos manuais<br />
-- Garanta conformidade contínua</p>
-<p><strong>Etapa 4: Escalar</strong> 📈<br />
-- Expanda para toda organização<br />
-- Integre com sistemas corporativos<br />
-- Alcance metas de descarbonização</p>
-<h3>Lembre-se</h3>
-<blockquote>
-<p>"A preparação de dados ESG representa 70-80% do esforço de reporte.<br />
-O KNIME transforma esse esforço em um processo automatizado, auditável e escalável,<br />
-permitindo que você foque no que realmente importa: <strong>ações para reduzir emissões</strong>."</p>
-</blockquote>
-<hr />
-<h2>Avalie Sua Maturidade em ESG</h2>
-<h3>Diagnóstico Gratuito de Automação ESG</h3>
-<p>Antes de finalizar, dê o próximo passo na sua jornada de automação ESG.</p>
-<h4>🎯 Descubra o Potencial de Automação da Sua Empresa</h4>
-<p>A HupData desenvolveu um <strong>Diagnóstico Gratuito de Automação ESG</strong> que avalia em poucos minutos:</p>
-<p><strong>O que você descobrirá:</strong></p>
-<p>✅ <strong>Nível de Maturidade Atual</strong> - Onde sua empresa está hoje em automação ESG<br />
-✅ <strong>Principais Gaps</strong> - Quais processos estão consumindo mais tempo e recursos<br />
-✅ <strong>Potencial de Automação</strong> - Quanto tempo e custo você pode economizar<br />
-✅ <strong>Roadmap Personalizado</strong> - Próximos passos específicos para sua realidade<br />
-✅ <strong>ROI Estimado</strong> - Retorno esperado com automação</p>
-<h4>⏱️ Apenas 3-5 Minutos</h4>
-<p>O diagnóstico é:<br />
-- 📱 <strong>100% Online</strong> - Acesse de qualquer lugar<br />
-- ⚡ <strong>Rápido</strong> - Responda em poucos minutos<br />
-- 🎁 <strong>Gratuito</strong> - Sem custo algum<br />
-- 📊 <strong>Resultado Imediato</strong> - Veja seu score na hora<br />
-- 📧 <strong>Relatório Detalhado</strong> - Receba por email com recomendações</p>
-<hr />
-<h3>Por Que Fazer o Diagnóstico?</h3>
-<h4>💡 Ganhe Clareza</h4>
-<p>Entenda exatamente onde você está e para onde precisa ir.</p>
-<h4>⏰ Economize Tempo</h4>
-<p>Identifique rapidamente os maiores gargalos do seu processo.</p>
-<h4>💰 Calcule o ROI</h4>
-<p>Veja quanto você pode economizar com automação.</p>
-<h4>🎯 Tenha um Plano</h4>
-<p>Receba roadmap personalizado com próximos passos concretos.</p>
-<h4>🤝 Conecte-se</h4>
-<p>Entre em contato direto com especialistas se desejar.</p>
-<hr />
-   <!-- CTA Box final - diagnóstico -->
-        <div class="cta-diagnostico">
-            <div class="cta-diagnostico-title">
-                🎯 Pronto para Automatizar Sua Gestão ESG?
-            </div>
-            <div class="cta-diagnostico-subtitle">
-                Faça o diagnóstico gratuito e descubra o potencial de automação da sua empresa
-            </div>
-            <a href="https://diagnostico.esg.hupdata.com/" class="cta-diagnostico-button">
-                FAZER DIAGNÓSTICO GRÁTIS
-            </a>
-            <div class="cta-diagnostico-features">
-                <span>⏱️ Apenas 3-5 minutos</span>
-                <span>|</span>
-                <span>📊 Resultado imediato</span>
-                <span>|</span>
-                <span>🎁 100% gratuito</span>
+        <!-- CAPA -->
+        <div class="cover">
+            <h1 style="color: #17203c;">Automatize seus<br>Indicadores ESG</h1>
+            <div class="subtitle">Um guia descomplicado para iniciantes</div>
+            <p style="font-size: 1.2em; margin-top: 40px;">📊 Transforme dias de trabalho manual<br>em minutos de automação inteligente</p>
+            <div class="author">
+                <p>HupData - Elite Partner KNIME Brasil</p>
+                <p>Versão 2.0 | Novembro 2025</p>
             </div>
         </div>
 
-<hr />
-<hr />
-<h2>Recursos Essenciais</h2>
-<h3>Workflow Deste Ebook</h3>
-<p>🔗 https://hub.knime.com/knime/spaces/KNIME%20for%20Finance/KPI/CO2%20Emissions/</p>
-<h3>Resources</h3>
-<p>🎓 https://hupdata.com/academy/</p>
-<h3>Padrões e Frameworks</h3>
-<ul>
-<li>📊 GHG Protocol: ghgprotocol.org</li>
-<li>📋 GRI Standards: www.globalreporting.org</li>
-<li>🏛️ SASB Standards: www.sasb.org</li>
-<li>🇧🇷 CVM: www.gov.br/cvm</li>
-</ul>
-<hr />
-<h2>Agradecimentos</h2>
-<p>Este ebook foi desenvolvido com base em:<br />
-- <strong>KNIME Beginner's Luck</strong> (Rosaria Silipo &amp; Sanket Joshi)<br />
-- <strong>KNIME for Finance</strong> blog series<br />
-- Experiência prática da <strong>HupData</strong> em projetos ESG<br />
-- Contribuições da comunidade KNIME</p>
-<hr />
-<p><strong>Versão:</strong> 2.0 - HupData Especializada ESG<br />
-<strong>Data:</strong> Janeiro 2025<br />
-<strong>Plataforma:</strong> KNIME Analytics Platform 5.2<br />
-<strong>Frameworks:</strong> GHG Protocol, GRI, SASB<br />
-<strong>Caso Prático:</strong> CO2 Emissions Tracking (KNIME Hub)</p>
-<hr />
-<p><strong>Boa sorte em sua jornada de automação ESG! 🌱</strong></p>
-      <p><strong>Entre em contato conosco podemos te ajudar nesta jornada</strong></p>
+        <!-- SUMÁRIO -->
+        <div class="toc">
+            <h2>📑 Sumário</h2>
+            <ul>
+                <li><a href="#capitulo-1">1. O que é ESG e por que é importante</a></li>
+                <li><a href="#capitulo-2">2. Os desafios da gestão manual de ESG</a></li>
+                <li><a href="#capitulo-3">3. Como a automação pode ajudar</a></li>
+                <li><a href="#capitulo-4">4. Conhecendo o KNIME - sua ferramenta de automação</a></li>
+                <li><a href="#capitulo-5">5. Caso prático: Calculando emissões de CO2</a></li>
+                <li><a href="#capitulo-6">6. Primeiros passos práticos</a></li>
+                <li><a href="#capitulo-7">7. Próximos passos na sua jornada ESG</a></li>
+                <li><a href="#conclusao">8. Conclusão: Sua jornada começa agora</a></li>
+            </ul>
+        </div>
 
-        <li><strong>📥 Email:</strong> contato@hupdata.com</li>
-      <li><strong>📞 WhatsApp:</strong> (+55) 11 97636033</li>  
+        <!-- CAPÍTULO 1 -->
+        <h1 id="capitulo-1">Capítulo 1: O que é ESG e por que é importante</h1>
+
+        <h2>ESG em linguagem simples</h2>
+        
+        <p><strong>ESG</strong> é uma sigla que representa três pilares fundamentais para empresas modernas:</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">E</div>
+                <div class="stat-label"><strong>Environmental</strong><br>Ambiental<br><br>Como sua empresa impacta o meio ambiente</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">S</div>
+                <div class="stat-label"><strong>Social</strong><br>Social<br><br>Como sua empresa trata pessoas e comunidades</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">G</div>
+                <div class="stat-label"><strong>Governance</strong><br>Governança<br><br>Como sua empresa é administrada</div>
+            </div>
+        </div>
+
+        <h2>Por que ESG importa?</h2>
+        
+        <p>Vivemos em um mundo onde empresas não são mais avaliadas apenas por seus resultados financeiros. Hoje, stakeholders querem saber se sua empresa:</p>
+        
+        <div class="checklist">
+            <ul>
+                <li>Se preocupa genuinamente com o planeta</li>
+                <li>Reporta suas emissões de carbono de forma transparente</li>
+                <li>É transparente com investidores e clientes</li>
+                <li>Cumpre regulamentações ambientais e sociais</li>
+                <li>Tem práticas sustentáveis em toda a cadeia de valor</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>🇧🇷 ESG no Brasil</h3>
+            <p>A CVM (Comissão de Valores Mobiliários) já exige que empresas de capital aberto reportem informações ESG. A tendência é que essa exigência se expanda para empresas de todos os portes nos próximos anos.</p>
+        </div>
+
+        <h2>Os números que fazem a diferença</h2>
+        
+        <p>Empresas que automatizam seus processos ESG conseguem resultados impressionantes:</p>
+        
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">70%</div>
+                <div class="stat-label">Redução no tempo de coleta de dados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Rastreabilidade das informações</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">3x</div>
+                <div class="stat-label">Mais rapidez na geração de relatórios</div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <h3>💡 Impacto Real</h3>
+            <p>Uma empresa de médio porte que implementou automação ESG reduziu o tempo de preparação de relatórios de <strong>4 dias para 2 horas</strong>, liberando sua equipe para focar em ações estratégicas de sustentabilidade ao invés de coleta manual de dados.</p>
+        </div>
+
+        <!-- CAPÍTULO 2 -->
+        <h1 id="capitulo-2">Capítulo 2: Os desafios da gestão manual de ESG</h1>
+
+        <h2>Como funciona hoje (sem automação)</h2>
+        
+        <p>Imagine que você trabalha em uma empresa de médio porte. Todo mês, você precisa consolidar dados de sustentabilidade. Veja como é esse processo:</p>
+
+        <h3>1. Coletar dados de múltiplas fontes</h3>
+        <ul>
+            <li><strong>Planilhas Excel</strong> de cada unidade operacional</li>
+            <li><strong>Sistema SAP</strong> da empresa com dados financeiros</li>
+            <li><strong>E-mails</strong> com informações dispersas</li>
+            <li><strong>Dados de sensores</strong> e medidores</li>
+            <li><strong>Faturas</strong> de energia, água e combustível</li>
+            <li><strong>Notas fiscais</strong> de transporte e logística</li>
+        </ul>
+
+        <h3>2. Processar manualmente</h3>
+        <ul>
+            <li>Copiar e colar dados entre planilhas</li>
+            <li>Calcular emissões uma por uma</li>
+            <li>Conferir manualmente se não há erros</li>
+            <li>Consolidar tudo em uma planilha mestre</li>
+            <li>Aplicar fatores de conversão</li>
+            <li>Validar com dados históricos</li>
+        </ul>
+
+        <h3>3. Gerar relatórios</h3>
+        <ul>
+            <li>Criar gráficos manualmente</li>
+            <li>Preparar documentos para auditoria</li>
+            <li>Enviar para diferentes stakeholders</li>
+            <li>Responder questionamentos sobre a origem dos dados</li>
+        </ul>
+
+        <div class="warning-box">
+            <h3>⏱️ Resultados do trabalho Manual</h3>
+            <p style="font-size: 1.3em;"><strong>3 a 4 dias de trabalho intenso todo mês!</strong></p>
+            <p>E isso considerando que não surjam problemas como dados inconsistentes, planilhas corrompidas ou informações faltantes.</p>
+        </div>
+
+        <h2>Os principais problemas provenientes do trabalho manual</h2>
+
+        <div class="error-list">
+            <ul>
+                <li><strong>Tempo excessivo:</strong> Dias inteiros só coletando e organizando dados, tempo que poderia ser usado para análise estratégica</li>
+                <li><strong>Erros frequentes:</strong> Copiar e colar manualmente gera inconsistências difíceis de rastrear</li>
+                <li><strong>Falta de rastreabilidade:</strong> Difícil explicar de onde veio cada número em uma auditoria</li>
+                <li><strong>Dificuldade em auditorias:</strong> Como provar que os dados estão corretos? Onde está a documentação?</li>
+                <li><strong>Relatórios desatualizados:</strong> Quando você termina de compilar, os dados já estão velhos</li>
+                <li><strong>Dependência de pessoas-chave:</strong> E se a pessoa que sabe fazer o relatório sair de férias?</li>
+                <li><strong>Impossível fazer análises profundas:</strong> Todo tempo vai para coleta, não sobra para insights</li>
+            </ul>
+        </div>
+
+        <div class="info-box">
+            <h3>📊 Cenário Real</h3>
+            <p>Uma pesquisa com 200 profissionais de sustentabilidade revelou que <strong>62%</strong> passam mais tempo coletando dados do que analisando-os. Apenas <strong>15%</strong> conseguem dedicar tempo adequado para identificar oportunidades de melhoria.</p>
+        </div>
+
+        <h2>O custo oculto da gestão manual</h2>
+
+        <p>Além do tempo direto gasto, há custos indiretos significativos:</p>
+
+        <table>
+            <tr>
+                <th>Custo</th>
+                <th>Impacto</th>
+                <th>Consequência</th>
+            </tr>
+            <tr>
+                <td>Retrabalho</td>
+                <td>20-30% do tempo</td>
+                <td>Correções de erros encontrados tarde demais</td>
+            </tr>
+            <tr>
+                <td>Oportunidades perdidas</td>
+                <td>Não mensurável</td>
+                <td>Insights que nunca foram descobertos</td>
+            </tr>
+            <tr>
+                <td>Risco regulatório</td>
+                <td>Alto</td>
+                <td>Dados inconsistentes em auditorias</td>
+            </tr>
+            <tr>
+                <td>Desmotivação da equipe</td>
+                <td>Médio-Alto</td>
+                <td>Trabalho repetitivo e pouco estratégico</td>
+            </tr>
+        </table>
+
+        <!-- CAPÍTULO 3 -->
+        <h1 id="capitulo-3">Capítulo 3: Como a automação pode ajudar</h1>
+
+        <h2>O que muda com automação?</h2>
+        
+        <p>Em vez de fazer tudo manualmente, você cria um <strong>fluxo automatizado</strong> (workflow) que trabalha para você:</p>
+
+        <div class="workflow-step">🔄 1. Coleta dados automaticamente de todas as fontes</div>
+        <div class="workflow-step">✅ 2. Valida e limpa os dados</div>
+        <div class="workflow-step">🧮 3. Calcula emissões usando as fórmulas corretas</div>
+        <div class="workflow-step">📊 4. Gera relatórios prontos para usar</div>
+        <div class="workflow-step">📧 5. Envia automaticamente para stakeholders</div>
+
+        <h2>Benefícios imediatos da automação</h2>
+
+        <h3>⏱️ Economia de Tempo</h3>
+        <div class="highlight-box">
+            <p><strong>Antes:</strong> 3-4 dias por mês</p>
+            <p><strong>Depois:</strong> 2-3 horas por mês (apenas para revisão)</p>
+            <p><strong>Economia:</strong> 95% do tempo liberado para análise estratégica</p>
+        </div>
+
+        <h3>🎯 Maior Precisão</h3>
+        <p>Quando você automatiza:</p>
+        <ul>
+            <li>Elimina erros de digitação e cópia</li>
+            <li>Aplica sempre as mesmas fórmulas consistentemente</li>
+            <li>Usa os fatores de emissão mais atualizados</li>
+            <li>Valida dados automaticamente com regras pré-definidas</li>
+        </ul>
+
+        <h3>📈 Rastreabilidade Total</h3>
+        <p>Cada número tem uma trilha clara:</p>
+        <ul>
+            <li>De onde veio o dado original</li>
+            <li>Quais transformações foram aplicadas</li>
+            <li>Qual fórmula foi usada</li>
+            <li>Quando foi calculado</li>
+            <li>Quem validou a informação</li>
+        </ul>
+
+        <div class="info-box">
+            <h3>🔍 Auditoria Facilitada</h3>
+            <p>Com automação, quando um auditor pergunta "de onde veio este número?", você pode mostrar exatamente a origem e todas as transformações aplicadas em segundos, ao invés de garimpar em dezenas de planilhas.</p>
+        </div>
+
+        <h3>🔄 Escalabilidade</h3>
+        <p>Uma vez criado o workflow:</p>
+        <ul>
+            <li>Funciona para 1 unidade ou 100 unidades</li>
+            <li>Processa 10 ou 10.000 registros com o mesmo esforço</li>
+            <li>Pode ser replicado para outras áreas da empresa</li>
+            <li>Facilmente adaptável a novas regulamentações</li>
+        </ul>
+
+        <h2>Tipos de automação possíveis</h2>
+
+        <h3>🟢 Nível Básico (Comece aqui)</h3>
+        <ul>
+            <li>Coleta automática de dados de planilhas</li>
+            <li>Cálculos de emissões de CO2 simples</li>
+            <li>Relatórios mensais automatizados</li>
+            <li>Gráficos básicos de tendência</li>
+        </ul>
+
+        <h3>🟡 Nível Intermediário</h3>
+        <ul>
+            <li>Integração com sistemas corporativos (SAP, ERP)</li>
+            <li>Validação automática de dados</li>
+            <li>Dashboards interativos</li>
+            <li>Alertas para desvios e anomalias</li>
+        </ul>
+
+        <h3>🔴 Nível Avançado</h3>
+        <ul>
+            <li>Machine Learning para previsões</li>
+            <li>Identificação automática de oportunidades de redução</li>
+            <li>Análise comparativa com benchmarks do setor</li>
+            <li>Relatórios personalizados para diferentes stakeholders</li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>💰 ROI da Automação ESG</h3>
+            <p><strong>Investimento:</strong> Tempo inicial de configuração (20-40 horas) + ferramentas (muitas gratuitas)</p>
+            <p><strong>Retorno anual:</strong></p>
+            <ul>
+                <li>480+ horas de trabalho economizadas</li>
+                <li>Redução de 90% em erros de relatório</li>
+                <li>Conformidade regulatória garantida</li>
+                <li>Decisões mais rápidas e informadas</li>
+            </ul>
+            <p><strong>Payback típico:</strong> 2-3 meses</p>
+        </div>
+
+        <!-- CAPÍTULO 4 -->
+        <h1 id="capitulo-4">Capítulo 4: Conhecendo o KNIME - sua ferramenta de automação</h1>
+
+        <h2>O que é KNIME?</h2>
+        
+        <p><strong>KNIME</strong> (pronuncia-se "naim") é uma plataforma open-source de análise de dados que permite criar workflows de automação sem precisar ser programador.</p>
+
+        <div class="highlight-box">
+            <h3>✨ Por que KNIME para ESG?</h3>
+            <ul>
+                <li><strong>Gratuito e open-source:</strong> Versão completa sem custos</li>
+                <li><strong>Visual e intuitivo:</strong> Arraste e solte componentes</li>
+                <li><strong>Não precisa programar:</strong> Interface gráfica amigável</li>
+                <li><strong>Poderoso:</strong> Usado por grandes empresas globalmente</li>
+                <li><strong>Conecta tudo:</strong> Excel, SAP, bancos de dados, APIs</li>
+                <li><strong>Comunidade ativa:</strong> Milhares de exemplos prontos</li>
+            </ul>
+        </div>
+
+        <h2>Como funciona o KNIME?</h2>
+
+        <p>O KNIME funciona com um conceito simples mas poderoso: <strong>nós (nodes)</strong> conectados em um <strong>fluxo (workflow)</strong>.</p>
+
+        <h3>🔹 Nós (Nodes)</h3>
+        <p>Cada nó executa uma tarefa específica:</p>
+        <ul>
+            <li><strong>Nó de Leitura:</strong> Importa dados (Excel, CSV, banco de dados)</li>
+            <li><strong>Nó de Filtro:</strong> Seleciona apenas dados relevantes</li>
+            <li><strong>Nó de Cálculo:</strong> Aplica fórmulas matemáticas</li>
+            <li><strong>Nó de Visualização:</strong> Cria gráficos</li>
+            <li><strong>Nó de Escrita:</strong> Exporta resultados</li>
+        </ul>
+
+        <h3>🔗 Workflow</h3>
+        <p>Você conecta os nós na ordem que desejar, criando um fluxo de processamento:</p>
+
+        <div class="info-box">
+            <p style="font-family: monospace; line-height: 2;">
+                📂 Ler Excel → 🔍 Filtrar dados → 🧮 Calcular CO2 → 📊 Criar gráfico → 💾 Salvar PDF
+            </p>
+        </div>
+
+        <h2>Principais recursos do KNIME para ESG</h2>
+
+        <h3>1. Leitura de Dados</h3>
+        <p>Conecte-se facilmente a múltiplas fontes:</p>
+        <ul>
+            <li>Planilhas Excel e Google Sheets</li>
+            <li>Arquivos CSV e TXT</li>
+            <li>Bancos de dados (SQL Server, Oracle, MySQL)</li>
+            <li>APIs REST</li>
+            <li>SAP e ERPs corporativos</li>
+        </ul>
+
+        <h3>2. Transformação de Dados</h3>
+        <p>Prepare seus dados para análise:</p>
+        <ul>
+            <li>Limpeza automática (remover duplicatas, valores vazios)</li>
+            <li>Conversão de unidades (kWh → MWh, litros → m³)</li>
+            <li>Agregação (somar por mês, por unidade, por categoria)</li>
+            <li>Cálculos customizados (fórmulas de emissão)</li>
+        </ul>
+
+        <h3>3. Análise e Cálculo</h3>
+        <p>Aplique metodologias ESG:</p>
+        <ul>
+            <li>Cálculos de emissões GHG Protocol (Escopo 1, 2, 3)</li>
+            <li>Fatores de emissão atualizados</li>
+            <li>Análise de tendências temporais</li>
+            <li>Comparações com metas e benchmarks</li>
+        </ul>
+
+        <h3>4. Visualização</h3>
+        <p>Crie relatórios profissionais:</p>
+        <ul>
+            <li>Gráficos de linha, barras, pizza</li>
+            <li>Dashboards interativos</li>
+            <li>Tabelas formatadas</li>
+            <li>Mapas geográficos</li>
+        </ul>
+
+        <h3>5. Exportação</h3>
+        <p>Compartilhe resultados:</p>
+        <ul>
+            <li>Relatórios em PDF</li>
+            <li>Planilhas Excel formatadas</li>
+            <li>Dashboards web interativos</li>
+            <li>Integração com PowerBI e Tableau</li>
+        </ul>
+
+        <h2>Vantagens do KNIME sobre outras ferramentas</h2>
+
+        <table>
+            <tr>
+                <th>Aspecto</th>
+                <th>KNIME</th>
+                <th>Excel Manual</th>
+                <th>Python/R</th>
+            </tr>
+            <tr>
+                <td>Curva de aprendizado</td>
+                <td>Baixa</td>
+                <td>Baixa</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>Automação</td>
+                <td>Total</td>
+                <td>Limitada</td>
+                <td>Total</td>
+            </tr>
+            <tr>
+                <td>Rastreabilidade</td>
+                <td>Excelente</td>
+                <td>Fraca</td>
+                <td>Boa</td>
+            </tr>
+            <tr>
+                <td>Custo</td>
+                <td>Gratuito</td>
+                <td>Baixo</td>
+                <td>Gratuito</td>
+            </tr>
+            <tr>
+                <td>Escalabilidade</td>
+                <td>Alta</td>
+                <td>Baixa</td>
+                <td>Alta</td>
+            </tr>
+            <tr>
+                <td>Precisa programar</td>
+                <td>Não</td>
+                <td>Não</td>
+                <td>Sim</td>
+            </tr>
+        </table>
+
+        <div class="highlight-box">
+            <h3>🏆 KNIME é Elite Partner</h3>
+            <p>A HupData é <strong>Elite Partner KNIME</strong> no Brasil, o que significa que temos expertise avançada e acesso direto ao time de desenvolvimento da ferramenta para suporte aos nossos clientes.</p>
+        </div>
+
+        <h2>Casos de uso reais</h2>
+
+        <h3>📍 Caso 1: Indústria Manufatureira</h3>
+        <p><strong>Desafio:</strong> 15 fábricas, cada uma com planilhas diferentes de consumo energético</p>
+        <p><strong>Solução KNIME:</strong> Workflow único que consolida dados de todas as unidades automaticamente</p>
+        <p><strong>Resultado:</strong> De 5 dias para 2 horas mensais</p>
+
+        <h3>📍 Caso 2: Empresa de Logística</h3>
+        <p><strong>Desafio:</strong> Calcular emissões de 500+ veículos diariamente</p>
+        <p><strong>Solução KNIME:</strong> Integração com sistema de telemetria + cálculo automático</p>
+        <p><strong>Resultado:</strong> Relatórios em tempo real, decisões mais rápidas sobre rotas</p>
+
+        <h3>📍 Caso 3: Empresa de Serviços</h3>
+        <p><strong>Desafio:</strong> Consolidar dados de 50+ escritórios para relatório corporativo</p>
+        <p><strong>Solução KNIME:</strong> Template padronizado + coleta automática</p>
+        <p><strong>Resultado:</strong> Conformidade regulatória garantida, zero retrabalho</p>
+
+        <!-- CAPÍTULO 5 -->
+        <h1 id="capitulo-5">Capítulo 5: Caso prático: Calculando emissões de CO2</h1>
+
+        <h2>Entendendo o cálculo de emissões</h2>
+        
+        <p>Vamos trabalhar com um exemplo real e prático: calcular as emissões de CO2 de uma empresa baseado em seu consumo de energia elétrica.</p>
+
+        <h3>📐 A fórmula básica</h3>
+        
+        <div class="info-box">
+            <p style="font-size: 1.2em; text-align: center;">
+                <strong>Emissões CO2 = Consumo × Fator de Emissão</strong>
+            </p>
+        </div>
+
+        <p>Onde:</p>
+        <ul>
+            <li><strong>Consumo:</strong> Quantidade de energia usada (ex: 1.000 kWh)</li>
+            <li><strong>Fator de Emissão:</strong> Quanto CO2 é emitido por unidade (ex: 0,0817 kg CO2/kWh)</li>
+            <li><strong>Resultado:</strong> Total de CO2 emitido (ex: 81,7 kg CO2)</li>
+        </ul>
+
+        <h2>Cenário do exemplo</h2>
+
+        <p>Imagine que você trabalha em uma empresa com 3 escritórios. Você precisa calcular as emissões de CO2 do consumo de energia elétrica do último mês.</p>
+
+        <h3>📊 Dados de entrada</h3>
+
+        <table>
+            <tr>
+                <th>Escritório</th>
+                <th>Consumo (kWh)</th>
+                <th>Localização</th>
+            </tr>
+            <tr>
+                <td>São Paulo</td>
+                <td>12.500</td>
+                <td>Brasil</td>
+            </tr>
+            <tr>
+                <td>Rio de Janeiro</td>
+                <td>8.300</td>
+                <td>Brasil</td>
+            </tr>
+            <tr>
+                <td>Curitiba</td>
+                <td>6.700</td>
+                <td>Brasil</td>
+            </tr>
+        </table>
+
+        <h3>🔬 Fator de emissão</h3>
+        <p>Para o Brasil, usaremos o fator oficial do Sistema Interligado Nacional (SIN):</p>
+        <div class="highlight-box">
+            <p style="text-align: center; font-size: 1.2em;">
+                <strong>0,0817 kg CO2 / kWh</strong>
+            </p>
+            <p style="text-align: center; font-size: 0.9em;">
+                (Fonte: Ministério de Ciência, Tecnologia e Inovações - 2024)
+            </p>
+        </div>
+
+        <h2>Passo a passo do workflow no KNIME</h2>
+
+        <h3>Passo 1: Importar os dados</h3>
+        <p>Primeiro, você lê os dados de consumo que estão em uma planilha Excel:</p>
+        <ul>
+            <li>Arraste o nó <code>Excel Reader</code></li>
+            <li>Configure para ler sua planilha</li>
+            <li>Execute para ver os dados</li>
+        </ul>
+
+        <h3>Passo 2: Adicionar o fator de emissão</h3>
+        <p>Crie uma nova coluna com o fator de emissão:</p>
+        <ul>
+            <li>Use o nó <code>Math Formula</code></li>
+            <li>Adicione a constante: 0.0817</li>
+            <li>Crie uma nova coluna chamada "Fator_Emissao"</li>
+        </ul>
+
+        <h3>Passo 3: Calcular as emissões</h3>
+        <p>Multiplique o consumo pelo fator:</p>
+        <ul>
+            <li>Use novamente o nó <code>Math Formula</code></li>
+            <li>Fórmula: <code>$Consumo_kWh$ * $Fator_Emissao$</code></li>
+            <li>Nomeie a coluna como "Emissoes_CO2_kg"</li>
+        </ul>
+
+        <h3>Passo 4: Converter para toneladas</h3>
+        <p>Para facilitar a leitura, converta kg para toneladas:</p>
+        <ul>
+            <li>Use o nó <code>Math Formula</code></li>
+            <li>Fórmula: <code>$Emissoes_CO2_kg$ / 1000</code></li>
+            <li>Nomeie como "Emissoes_CO2_t"</li>
+        </ul>
+
+        <h3>Passo 5: Criar visualizações</h3>
+        <p>Gere gráficos para o relatório:</p>
+        <ul>
+            <li>Use o nó <code>Bar Chart</code> para comparar escritórios</li>
+            <li>Use o nó <code>Pie Chart</code> para ver proporções</li>
+            <li>Adicione títulos e legendas</li>
+        </ul>
+
+        <h3>Passo 6: Exportar resultados</h3>
+        <p>Salve os resultados:</p>
+        <ul>
+            <li>Use <code>Excel Writer</code> para planilha</li>
+            <li>Use <code>Image to Report</code> para PDF com gráficos</li>
+        </ul>
+
+        <h2>Resultado final</h2>
+
+        <div class="highlight-box">
+            <h3>📊 Emissões calculadas</h3>
+            <table>
+                <tr>
+                    <th>Escritório</th>
+                    <th>Consumo (kWh)</th>
+                    <th>Emissões (kg CO2)</th>
+                    <th>Emissões (t CO2)</th>
+                </tr>
+                <tr>
+                    <td>São Paulo</td>
+                    <td>12.500</td>
+                    <td>1.021,25</td>
+                    <td>1,02</td>
+                </tr>
+                <tr>
+                    <td>Rio de Janeiro</td>
+                    <td>8.300</td>
+                    <td>678,11</td>
+                    <td>0,68</td>
+                </tr>
+                <tr>
+                    <td>Curitiba</td>
+                    <td>6.700</td>
+                    <td>547,39</td>
+                    <td>0,55</td>
+                </tr>
+                <tr style="background-color: #e8f5e9; font-weight: bold;">
+                    <td>TOTAL</td>
+                    <td>27.500</td>
+                    <td>2.246,75</td>
+                    <td>2,25</td>
+                </tr>
+            </table>
+        </div>
+
+        <h2>Expandindo o exemplo</h2>
+
+        <p>Uma vez criado este workflow básico, você pode facilmente:</p>
+
+        <div class="checklist">
+            <ul>
+                <li>Adicionar mais escritórios (basta incluir novas linhas na planilha)</li>
+                <li>Calcular emissões de outras fontes (gás, combustível, transporte)</li>
+                <li>Comparar mês a mês automaticamente</li>
+                <li>Criar alertas para consumo acima da média</li>
+                <li>Integrar com seu sistema ERP</li>
+                <li>Gerar relatórios mensais automáticos</li>
+            </ul>
+        </div>
+
+        <h2>Validação dos resultados</h2>
+
+        <p>É importante sempre validar seus cálculos:</p>
+
+        <h3>✅ Checklist de validação</h3>
+        <ol>
+            <li><strong>Os números fazem sentido?</strong> Compare com meses anteriores</li>
+            <li><strong>O fator de emissão está correto?</strong> Confirme a fonte oficial</li>
+            <li><strong>As unidades estão certas?</strong> kWh, kg, toneladas...</li>
+            <li><strong>Todos os escritórios estão incluídos?</strong> Nenhum ficou de fora</li>
+            <li><strong>Os gráficos contam a história certa?</strong> Visualização clara</li>
+        </ol>
+
+        <div class="warning-box">
+            <h3>⚠️ Atenção aos fatores de emissão</h3>
+            <p>Fatores de emissão mudam anualmente e variam por país/região. Sempre use fontes oficiais atualizadas:</p>
+            <ul>
+                <li>Brasil: MCTIC (Ministério da Ciência, Tecnologia e Inovações)</li>
+                <li>Internacional: UK Government GHG Conversion Factors</li>
+                <li>Global: IPCC Emission Factor Database</li>
+            </ul>
+        </div>
+
+        <!-- CAPÍTULO 6 -->
+        <h1 id="capitulo-6">Capítulo 6: Primeiros passos práticos</h1>
+
+        <h2>Como começar hoje</h2>
+
+        <h3>🚀 Passo 1: Baixe o KNIME (gratuito)</h3>
+        <ol>
+            <li>Acesse: <strong>www.knime.com</strong></li>
+            <li>Clique em "Download KNIME Analytics Platform"</li>
+            <li>Escolha seu sistema operacional (Windows, Mac ou Linux)</li>
+            <li>Instale seguindo o assistente (instalação padrão é suficiente)</li>
+            <li>Abra o KNIME pela primeira vez</li>
+        </ol>
+
+        <div class="info-box">
+            <h3>💻 Requisitos mínimos</h3>
+            <ul>
+                <li>Sistema: Windows 10+, macOS 10.15+, ou Linux</li>
+                <li>Processador: Dual-core ou superior</li>
+                <li>Memória RAM: 4GB (recomendado 8GB)</li>
+                <li>Espaço em disco: 2GB livres</li>
+            </ul>
+        </div>
+
+        <h3>🎓 Passo 2: Explore um exemplo pronto</h3>
+        <ol>
+            <li>Abra o KNIME</li>
+            <li>Vá em: <strong>File → Import KNIME Workflow</strong></li>
+            <li>Escolha "Select file" e procure por exemplos básicos</li>
+            <li>Ou acesse o <strong>KNIME Hub</strong> (hub.knime.com)</li>
+            <li>Busque por "CO2 Emissions" ou "ESG"</li>
+            <li>Baixe um workflow de exemplo</li>
+            <li>Execute nó por nó para entender como funciona</li>
+        </ol>
+
+        <h3>🔧 Passo 3: Adapte para seus dados</h3>
+        
+        <p>Comece com algo simples e expanda gradualmente:</p>
+
+        <div class="highlight-box">
+            <h3>Seu primeiro projeto</h3>
+            <ol>
+                <li>Escolha UMA fonte de emissão (ex: apenas energia elétrica)</li>
+                <li>Pegue dados de 1-3 meses</li>
+                <li>Crie um cálculo básico no KNIME</li>
+                <li>Gere um gráfico simples</li>
+                <li>Compare com seu cálculo manual para validar</li>
+                <li>Ajuste e melhore</li>
+                <li>Só então adicione complexidade</li>
+            </ol>
+        </div>
+
+        <h2>Checklist: O que você precisa ter</h2>
+
+        <p>Antes de começar a automatizar, organize:</p>
+
+        <div class="checklist">
+            <h3>✅ Fontes de dados identificadas</h3>
+            <ul>
+                <li>Onde estão os dados de energia elétrica?</li>
+                <li>Onde estão os dados de transporte?</li>
+                <li>Onde estão os gastos com combustível?</li>
+                <li>Quem é responsável por cada fonte?</li>
+                <li>Com que frequência são atualizados?</li>
+            </ul>
+
+            <h3>✅ Fatores de emissão atualizados</h3>
+            <ul>
+                <li>Identifique as fontes oficiais para seu país</li>
+                <li>Baixe as tabelas mais recentes</li>
+                <li>Confirme o ano de referência</li>
+                <li>Documente a fonte para auditorias</li>
+                <li>Configure lembretes de atualização anual</li>
+            </ul>
+
+            <h3>✅ Processo atual documentado</h3>
+            <ul>
+                <li>Como você calcula emissões hoje?</li>
+                <li>Quais fórmulas você usa?</li>
+                <li>Que relatórios você precisa gerar?</li>
+                <li>Para quem você reporta?</li>
+                <li>Quais são os prazos?</li>
+            </ul>
+
+            <h3>✅ Tempo para aprender</h3>
+            <ul>
+                <li>Reserve 2-3 horas por semana inicialmente</li>
+                <li>Comece com tutoriais simples</li>
+                <li>Pratique com dados reais (mas não críticos)</li>
+                <li>Peça ajuda na comunidade quando travar</li>
+            </ul>
+        </div>
+
+        <h2>Erros comuns de iniciantes (e como evitar)</h2>
+
+        <div class="error-list">
+            <h3>❌ Erro 1: Começar muito complexo</h3>
+            <ul>
+                <li><strong>O erro:</strong> Tentar automatizar tudo de uma vez</li>
+                <li><strong>O problema:</strong> Você se frustra e desiste</li>
+                <li><strong>A solução:</strong> Comece com UMA fonte de emissão e expanda aos poucos</li>
+            </ul>
+
+            <h3>❌ Erro 2: Não validar os dados</h3>
+            <ul>
+                <li><strong>O erro:</strong> Confiar cegamente nos resultados</li>
+                <li><strong>O problema:</strong> Erros passam despercebidos</li>
+                <li><strong>A solução:</strong> Sempre compare com cálculos manuais inicialmente</li>
+            </ul>
+
+            <h3>❌ Erro 3: Esquecer de documentar</h3>
+            <ul>
+                <li><strong>O erro:</strong> Não explicar o que cada parte do workflow faz</li>
+                <li><strong>O problema:</strong> Você mesmo esquece daqui 6 meses</li>
+                <li><strong>A solução:</strong> Use anotações em cada nó importante</li>
+            </ul>
+
+            <h3>❌ Erro 4: Não testar antes de automatizar</h3>
+            <ul>
+                <li><strong>O erro:</strong> Agendar execução automática no primeiro dia</li>
+                <li><strong>O problema:</strong> Erros podem se propagar por semanas</li>
+                <li><strong>A solução:</strong> Rode manualmente várias vezes antes de automatizar</li>
+            </ul>
+
+            <h3>❌ Erro 5: Usar dados não confiáveis</h3>
+            <ul>
+                <li><strong>O erro:</strong> Importar dados sem verificar qualidade</li>
+                <li><strong>O problema:</strong> "Garbage in, garbage out"</li>
+                <li><strong>A solução:</strong> Crie etapas de validação no início do workflow</li>
+            </ul>
+        </div>
+
+        <h2>Recursos gratuitos para aprender</h2>
+
+        <h3>📺 Tutoriais em vídeo</h3>
+        <p>A HupData oferece materiais gratuitos exclusivos para você começar:</p>
+        <ul>
+            <li><strong>WEBINAR – Como Automatizar Indicadores ESG com KNIME:</strong><br>
+            <a href="https://hupdata.com/academy/conteudos/webinar-como-automatizar-indicadores-esg-com-knime/" target="_blank">hupdata.com/academy/conteudos/webinar-como-automatizar-indicadores-esg-com-knime</a></li>
+            <li><strong>E-BOOK – FROM EXCEL TO KNIME:</strong><br>
+            <a href="https://hupdata.com/academy/conteudos/exceltoknime/" target="_blank">hupdata.com/academy/conteudos/exceltoknime</a></li>
+            <li><strong>Outros Materiais – HupData Academy:</strong><br>
+            <a href="https://hupdata.com/academy/" target="_blank">hupdata.com/academy</a></li>
+        </ul>
+
+        <div class="highlight-box">
+            <h3>🎯 Dica de ouro</h3>
+            <p>A melhor forma de aprender é fazendo. Não fique apenas assistindo tutoriais - abra o KNIME e replique o que você vê. A prática é essencial!</p>
+        </div>
+
+        <!-- CAPÍTULO 7 -->
+        <h1 id="capitulo-7">Capítulo 7: Próximos passos na sua jornada ESG</h1>
+
+        <h3>Semana 1: Fundamentos</h3>
+        <ul>
+            <li><strong>Dia 1-2:</strong> Instalar KNIME e fazer tour inicial</li>
+            <li><strong>Dia 3-4:</strong> Tutorial básico de workflows</li>
+            <li><strong>Dia 5-7:</strong> Praticar com exemplos simples</li>
+        </ul>
+
+        <h3>Semana 2: Dados</h3>
+        <ul>
+            <li><strong>Dia 8-10:</strong> Importar e exportar dados</li>
+            <li><strong>Dia 11-12:</strong> Limpar e transformar dados</li>
+            <li><strong>Dia 13-14:</strong> Praticar com seus dados reais</li>
+        </ul>
+
+        <h3>Semana 3: Cálculos</h3>
+        <ul>
+            <li><strong>Dia 15-17:</strong> Fórmulas matemáticas e cálculos</li>
+            <li><strong>Dia 18-19:</strong> Implementar cálculo de CO2</li>
+            <li><strong>Dia 20-21:</strong> Validar resultados</li>
+        </ul>
+
+        <h3>Semana 4: Visualização e Automação</h3>
+        <ul>
+            <li><strong>Dia 22-24:</strong> Criar gráficos e relatórios</li>
+            <li><strong>Dia 25-27:</strong> Exportar em diferentes formatos</li>
+            <li><strong>Dia 28-30:</strong> Configurar execução automática</li>
+        </ul>
+
+        <h2>Avalie sua maturidade atual</h2>
+
+        <p>Onde sua empresa está hoje? Use este modelo de maturidade para identificar seu nível e próximos passos:</p>
+
+        <h3>⭐ Nível 1: Manual Completo</h3>
+        <ul>
+            <li>Tudo em planilhas Excel desconectadas</li>
+            <li>Processos 100% manuais</li>
+            <li>Sem rastreabilidade de dados</li>
+            <li>Alto risco de erros</li>
+            <li>Equipe sobrecarregada com coleta de dados</li>
+        </ul>
+        <div class="warning-box">
+            <p><strong>Foco imediato:</strong> Automatizar coleta de dados. Comece implementando leituras automáticas de planilhas.</p>
+        </div>
+
+        <h3>⭐⭐ Nível 2: Parcialmente Automatizado</h3>
+        <ul>
+            <li>Algumas planilhas com fórmulas</li>
+            <li>Coleta ainda é manual</li>
+            <li>Relatórios básicos semi-automatizados</li>
+            <li>Rastreabilidade limitada</li>
+        </ul>
+        <div class="info-box">
+            <p><strong>Foco imediato:</strong> Criar workflows simples. Conecte suas fontes de dados e automatize cálculos principais.</p>
+        </div>
+
+        <h3>⭐⭐⭐ Nível 3: Automatizado</h3>
+        <ul>
+            <li>Workflows principais funcionando</li>
+            <li>Cálculos automatizados</li>
+            <li>Relatórios mensais gerados automaticamente</li>
+            <li>Boa rastreabilidade</li>
+            <li>Equipe focada em análise, não em coleta</li>
+        </ul>
+        <div class="highlight-box">
+            <p><strong>Foco imediato:</strong> Adicionar Machine Learning para previsões. Implemente dashboards em tempo real.</p>
+        </div>
+
+        <h3>⭐⭐⭐⭐ Nível 4: Otimizado</h3>
+        <ul>
+            <li>Totalmente automatizado end-to-end</li>
+            <li>Dashboards em tempo real</li>
+            <li>Integrado com todos os sistemas corporativos</li>
+            <li>Alertas preditivos funcionando</li>
+            <li>Benchmarking automático com mercado</li>
+        </ul>
+        <div class="highlight-box">
+            <p><strong>Foco imediato:</strong> Compartilhar conhecimento. Expanda para outras áreas da empresa e ajude outras organizações.</p>
+        </div>
+
+        <h2>Quando buscar ajuda profissional</h2>
+
+        <p>Embora você possa fazer muito por conta própria, considere contratar especialistas quando:</p>
+
+        <div class="checklist">
+            <ul>
+                <li>Sua empresa tem múltiplas unidades ou opera em vários países</li>
+                <li>Precisa de conformidade com regulações específicas (CVM, SEC, etc.)</li>
+                <li>Quer implementar rapidamente (em menos de 3 meses)</li>
+                <li>Precisa integrar com sistemas corporativos complexos (SAP, Oracle, etc.)</li>
+                <li>Quer treinar múltiplas equipes simultaneamente</li>
+                <li>Necessita de suporte contínuo e atualizações</li>
+                <li>Busca best practices de mercado</li>
+                <li>Precisa de workflows customizados complexos</li>
+            </ul>
+        </div>
+
+        <h2>Indicadores de sucesso</h2>
+
+        <p>Como saber se sua automação está funcionando? Acompanhe estes KPIs:</p>
+
+        <table>
+            <tr>
+                <th>Indicador</th>
+                <th>Meta</th>
+                <th>Como medir</th>
+            </tr>
+            <tr>
+                <td>Tempo de coleta de dados</td>
+                <td>Redução de 70%</td>
+                <td>Horas gastas mês a mês</td>
+            </tr>
+            <tr>
+                <td>Taxa de erro</td>
+                <td>Redução de 90%</td>
+                <td>Erros encontrados em auditorias</td>
+            </tr>
+            <tr>
+                <td>Prazo de entrega</td>
+                <td>-50%</td>
+                <td>Dias desde coleta até relatório final</td>
+            </tr>
+            <tr>
+                <td>Satisfação da equipe</td>
+                <td>+40%</td>
+                <td>Pesquisa de satisfação trimestral</td>
+            </tr>
+            <tr>
+                <td>Rastreabilidade</td>
+                <td>100%</td>
+                <td>% de dados com origem documentada</td>
+            </tr>
+            <tr>
+                <td>Cobertura de dados</td>
+                <td>100%</td>
+                <td>% de fontes de emissão automatizadas</td>
+            </tr>
+        </table>
+
+        <h2>Recursos adicionais</h2>
+
+        <div class="highlight-box">
+            <h3>🎯 Avalie sua maturidade em automação ESG</h3>
+            <p>Acesse a nossa ferramenta de diagnóstico automático e avalie a maturidade da automação de processos em ESG da sua empresa e receba direcionamento para evoluir.</p>
+            <p style="text-align: center; margin-top: 20px;">
+                <strong><a href="https://diagnostico.esg.hupdata.com/" target="_blank" style="color: #1565c0; font-size: 1.1em;">diagnostico.esg.hupdata.com</a></strong>
+            </p>
+        </div>
+
+        <h3>📊 Padrões e Frameworks ESG</h3>
+        <ul>
+            <li><strong>GHG Protocol:</strong> ghgprotocol.org - Padrão global para cálculo de emissões</li>
+            <li><strong>GRI Standards:</strong> globalreporting.org - Framework de relatórios de sustentabilidade</li>
+            <li><strong>SASB Standards:</strong> sasb.org - Padrões específicos por setor</li>
+            <li><strong>TCFD:</strong> fsb-tcfd.org - Recomendações sobre divulgações climáticas</li>
+            <li><strong>CVM (Brasil):</strong> gov.br/cvm - Regulamentação brasileira</li>
+        </ul>
+
+        <h3>🔧 Ferramentas complementares</h3>
+        <ul>
+            <li><strong>Calculadoras de CO2:</strong> Ferramentas online para validação rápida</li>
+            <li><strong>Bases de dados de fatores:</strong> IPCC, UK Gov, EPA</li>
+            <li><strong>Templates de relatórios:</strong> GRI, CDP, SASB</li>
+            <li><strong>Dashboards:</strong> PowerBI, Tableau, Grafana</li>
+        </ul>
+
+        <h3>📚 Leitura recomendada</h3>
+        <ul>
+            <li>"The ESG Data Challenge" - Bloomberg</li>
+            <li>"Automating ESG Reporting" - Deloitte Insights</li>
+            <li>"Corporate GHG Inventory Guidelines" - GHG Protocol</li>
+            <li>"Data Quality in ESG" - MSCI Research</li>
+        </ul>
+
+        <h2>Comunidades e networking</h2>
+
+        <h3>🌐 Online</h3>
+        <ul>
+            <li><strong>LinkedIn Groups:</strong> KNIME Brasil - <a href="https://www.linkedin.com/groups/8877250/" target="_blank">linkedin.com/groups/8877250</a></li>
+            <li><strong>KNIME Community:</strong> forum.knime.com</li>
+            <li><strong>Reddit:</strong> r/ESG, r/sustainability</li>
+        </ul>
+
+        <!-- CONCLUSÃO -->
+        <h1 id="conclusao">Conclusão: Sua jornada começa agora</h1>
+
+        <h2>O que você aprendeu</h2>
+
+        <p>Ao longo deste guia, você descobriu:</p>
+
+        <div class="checklist">
+            <ul>
+                <li>Por que ESG é importante e urgente para empresas modernas</li>
+                <li>Os desafios críticos da gestão manual de dados ESG</li>
+                <li>Como a automação resolve esses problemas de forma eficaz</li>
+                <li>O que é KNIME e como usá-lo para automação ESG</li>
+                <li>Um caso prático completo de cálculo de emissões de CO2</li>
+                <li>Passos concretos e acionáveis para começar hoje</li>
+                <li>Um roadmap de 90 dias para transformação completa</li>
+            </ul>
+        </div>
+
+        <h2>A transformação que espera por você</h2>
+
+        <p>Imagine sua realidade daqui a 3 meses:</p>
+
+        <div class="highlight-box">
+            <h3>🌟 Sua nova rotina mensal</h3>
+            <p><strong>Segunda-feira de manhã, 9h:</strong></p>
+            <ul>
+                <li>☕ Você toma seu café tranquilamente</li>
+                <li>📧 Recebe um e-mail: "Relatório ESG de outubro pronto"</li>
+                <li>📊 Acessa o dashboard atualizado automaticamente</li>
+                <li>🎯 Identifica rapidamente oportunidades de melhoria</li>
+                <li>💡 Passa o dia focando em AÇÕES, não em planilhas</li>
+                <li>😌 Vai para casa sabendo que está em total conformidade</li>
+            </ul>
+        </div>
+
+        <h3>Os benefícios continuam crescendo</h3>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">📈</div>
+                <div class="stat-label">Sua equipe fica mais produtiva e engajada</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">✅</div>
+                <div class="stat-label">Seus relatórios são mais confiáveis e auditáveis</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">🏆</div>
+                <div class="stat-label">Suas auditorias são mais tranquilas e rápidas</div>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stat-item">
+                <div class="stat-number">🎯</div>
+                <div class="stat-label">Sua empresa toma decisões baseadas em dados</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">🌱</div>
+                <div class="stat-label">Você ajuda o planeta de forma mensurável</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">😊</div>
+                <div class="stat-label">Você recupera tempo para o que importa</div>
+            </div>
+        </div>
+
+        <h2>Seu próximo passo</h2>
+
+        <div class="warning-box">
+            <h3>⚡ Não espere a perfeição. Comece pequeno:</h3>
+            <ol style="font-size: 1.2em; margin-top: 15px;">
+                <li><strong>Hoje:</strong> Baixe o KNIME (15 minutos)</li>
+                <li><strong>Amanhã:</strong> Assista a um tutorial básico (30 minutos)</li>
+                <li><strong>Esta semana:</strong> Escolha UMA fonte de emissão</li>
+                <li><strong>Próximas semanas:</strong> Crie seu primeiro workflow</li>
+                <li><strong>Próximo mês:</strong> Gere seu primeiro relatório automatizado</li>
+            </ol>
+        </div>
+
+        <div class="highlight-box" style="text-align: center; padding: 40px;">
+            <p style="font-size: 1.8em; margin-bottom: 20px;">
+                <strong>"Cada grande jornada começa com um pequeno passo."</strong>
+            </p>
+            <p style="font-size: 1.3em;">
+                O seu passo é <strong>hoje</strong>. 🚀
+            </p>
+        </div>
+
+        <h2>Lembre-se</h2>
+
+        <p>Você não precisa ser um especialista em tecnologia. Você não precisa fazer tudo perfeito de primeira. Você só precisa:</p>
+
+        <div class="checklist">
+            <ul>
+                <li><strong>Começar:</strong> O primeiro passo é sempre o mais importante</li>
+                <li><strong>Persistir:</strong> Cada pequeno progresso conta</li>
+                <li><strong>Aprender:</strong> Com cada erro, você fica mais forte</li>
+                <li><strong>Compartilhar:</strong> Ensine outros e fortaleça o movimento</li>
+                <li><strong>Celebrar:</strong> Reconheça cada vitória, por menor que seja</li>
+            </ul>
+        </div>
+
+        <h2>Uma última palavra</h2>
+
+        <p>A automação de ESG não é apenas sobre eficiência ou conformidade. É sobre <strong>liberar o potencial humano</strong> para focar no que realmente importa: <strong>criar um futuro mais sustentável</strong>.</p>
+
+        <p>Quando você libera sua equipe do trabalho manual repetitivo, você cria espaço para:</p>
+
+        <ul>
+            <li>Criatividade na busca de soluções sustentáveis</li>
+            <li>Análises profundas que geram insights reais</li>
+            <li>Ações concretas que reduzem impacto ambiental</li>
+            <li>Inovação que transforma sua empresa</li>
+            <li>Tempo para pensar estrategicamente sobre o futuro</li>
+        </ul>
+
+        <div class="info-box" style="background: linear-gradient(135deg, #e8f5e9, #e3f2fd); border-left: 5px solid #2e7d32;">
+            <p style="font-size: 1.2em; text-align: center; margin: 20px 0;">
+                <strong>Você tem o poder de fazer a diferença.</strong><br>
+                <strong>Você tem as ferramentas.</strong><br>
+                <strong>Você tem este guia.</strong><br><br>
+                <em>Agora, você só precisa dar o primeiro passo.</em>
+            </p>
+        </div>
+
+        <!-- RODAPÉ -->
+        <div class="footer-section">
+            <h2>Sobre a HupData</h2>
+            
+            <p style="font-size: 1.1em; margin: 20px 0;">
+                A HupData é <strong>Elite Partner KNIME</strong> no Brasil e especialista em automação de indicadores ESG.
+            </p>
+
+            <h3 style="color: white; margin-top: 30px;">Como podemos ajudar:</h3>
+            <ul style="list-style: none; margin: 20px 0;">
+                <li>🎓 Treinamentos personalizados para sua equipe</li>
+                <li>🛠️ Implementação completa de workflows ESG</li>
+                <li>📊 Consultoria especializada em automação</li>
+                <li>🤝 Suporte contínuo e manutenção</li>
+                <li>📈 Integração com sistemas corporativos</li>
+            </ul>
+
+            <h3 style="color: white; margin-top: 40px;">Entre em contato:</h3>
+            <p style="font-size: 1.2em; margin: 20px 0;">
+                📧 <a href="mailto:contato@hupdata.com">contato@hupdata.com</a><br>
+                📱 <a href="https://wa.me/5511976360033">+55 11 9763-6033</a><br>
+                🌐 <a href="https://www.hupdata.com">www.hupdata.com</a>
+            </p>
+
+            <hr style="margin: 40px 0; border-color: rgba(255,255,255,0.3);">
+
+            <p style="margin-top: 30px; font-size: 0.9em;">
+                <strong>Versão 2.0</strong> | Novembro 2025<br>
+                HupData - Data Analysis Solutions<br>
+                Elite Partner KNIME Brasil
+            </p>
+
+            <p style="margin-top: 30px; font-style: italic;">
+                Este guia foi criado para tornar a automação ESG acessível a todos.<br>
+                Compartilhe com colegas e contribua para um mundo mais sustentável! 🌱
+            </p>
+        </div>
 
     </div>
 </body>
